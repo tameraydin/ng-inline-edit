@@ -1,0 +1,36 @@
+body {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  font-family: sans-serif;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.demo-wrapper {
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 20%;
+  position: relative;
+}
+
+.first-demo .ng-inline-edit__input {
+  font-size: 1em;
+  border-bottom: 1px dashed #333;
+}
+
+.first-demo .ng-inline-edit__button {
+  color: blue;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.first-demo .ng-inline-edit__button:hover {
+  text-decoration: underline;
+}
