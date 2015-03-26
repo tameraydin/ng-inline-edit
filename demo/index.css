@@ -20,6 +20,19 @@ body {
   position: relative;
 }
 
+.first-demo .ng-inline-edit {
+  padding: 20px;
+  background: gray;
+}
+
+.first-demo .ng-inline-edit--validating {
+  background: blue;
+}
+
+.first-demo .ng-inline-edit--error {
+  background: red;
+}
+
 .first-demo .ng-inline-edit__input {
   font-size: 1em;
   border-bottom: 1px dashed #333;

@@ -12,7 +12,8 @@
           controller: 'InlineEditController',
           scope: {
             model: '=inlineEdit',
-            callback: '&inlineEditCallback'
+            callback: '&inlineEditCallback',
+            validate: '&inlineEditValidation'
           },
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
@@ -20,15 +21,40 @@
               scope.cancelOnBlur = true;
             }
 
+            // check if proper validation method is provided, otherwise use a fake promise
+            if (!attrs.inlineEditValidation ||
+              typeof scope.$parent.$eval(attrs.inlineEditValidation.split('(')[0]) !== 'function') {
+              scope.validate = function() {
+                return {
+                  then: function(callback) {
+                    callback();
+                    return {
+                      catch: function() {
+                        return {
+                          finally: function(callback) {
+                            callback();
+                          }
+                        };
+                      }
+                    };
+                  }
+                };
+              };
+            }
+
+            var container = angular.element(
+              '<div class="ng-inline-edit" ' +
+                'ng-class="{\'ng-inline-edit--validating\': validating, \'ng-inline-edit--error\': validationError}">');
+
             var input = angular.element(
               '<input type="text" class="ng-inline-edit__input" ' +
                 'ng-show="editMode" ' +
                 'ng-keyup="onInputKeyup($event)" ' +
                 'ng-model="inputValue" />');
-            var container = angular.element(
-              '<div class="ng-inline-edit__container"></div>');
+            var innerContainer = angular.element(
+              '<div class="ng-inline-edit__inner-container"></div>');
 
-            container
+            innerContainer
               // text
               .append(angular.element(
                 '<span class="ng-inline-edit__text" ' +
@@ -36,11 +62,14 @@
               // button
               .append(angular.element(
                 '<a class="ng-inline-edit__button" ' +
-                  'ng-show="model && !editMode" ' +
+                  'ng-show="!editMode" ' +
                   'ng-click="editText()">' + (attrs.inlineEditButtonHtml || '') + '</a>'));
 
-            element
+            container
               .append(input)
+              .append(innerContainer);
+
+            element
               .append(container);
 
             scope.editInput = input;
