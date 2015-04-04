@@ -25,9 +25,10 @@ angular
 
 Pass your model to ``inline-edit`` attribute on your HTML element and provide a callback function to listen changes:
 ```html
-<span inline-edit="yourModel" inline-edit-callback="yourChangeListener(newValue)"></span>
+<span inline-edit="yourModel" inline-edit-callback="yourListener(newValue)"></span>
 <!-- with optional attributes:
-  inline-edit-button-html="Edit"
+  inline-edit-validation="yourValidator(enteredValue)"
+  inline-edit-button-html="Click to edit"
   inline-edit-cancel-on-blur
 -->
 ```
