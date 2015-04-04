@@ -1,5 +1,5 @@
 /**
- * ng-inline-edit v0.1.0 (http://tamerayd.in/ng-inline-edit)
+ * ng-inline-edit v0.2.0 (http://tamerayd.in/ng-inline-edit)
  * Copyright 2015 Tamer Aydin (http://tamerayd.in)
  * Licensed under MIT
  */
