@@ -31,6 +31,7 @@ Pass your model to ``inline-edit`` attribute on your HTML element and provide a 
   inline-edit-validation="yourValidator(enteredValue)"
   inline-edit-button-html="Click to edit"
   inline-edit-cancel-on-blur
+  inline-edit-on-click
 -->
 ```
 

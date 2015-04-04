@@ -42,9 +42,9 @@
             }, 0);
           }
 
-          function _onEnd() {
+          function _onEnd(apply) {
             $scope.validating = false;
-            if (byDOM) {
+            if (apply && byDOM) {
               $scope.$apply();
             }
           }
@@ -74,11 +74,11 @@
             } else if (validationResult ||
                 typeof validationResult === 'undefined') {
               _onSuccess();
-              _onEnd();
+              _onEnd(true);
 
             } else {
               _onFailure();
-              _onEnd();
+              _onEnd(true);
             }
           }
 

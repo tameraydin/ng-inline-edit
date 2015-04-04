@@ -38,6 +38,8 @@
             // text
             innerContainer.append(angular.element(
               '<span class="ng-inline-edit__text" ' +
+                (attrs.hasOwnProperty('inlineEditOnClick') ?
+                  'ng-click="editText()" ' : '') +
                 'ng-hide="editMode">{{model}}</span>'));
 
             // button
