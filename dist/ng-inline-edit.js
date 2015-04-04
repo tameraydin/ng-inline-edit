@@ -1,5 +1,5 @@
 /**
- * ng-inline-edit v0.2.0 (http://tamerayd.in/ng-inline-edit)
+ * ng-inline-edit v0.3.0 (http://tamerayd.in/ng-inline-edit)
  * Copyright 2015 Tamer Aydin (http://tamerayd.in)
  * Licensed under MIT
  */
@@ -47,9 +47,9 @@
             }, 0);
           }
 
-          function _onEnd() {
+          function _onEnd(apply) {
             $scope.validating = false;
-            if (byDOM) {
+            if (apply && byDOM) {
               $scope.$apply();
             }
           }
@@ -70,19 +70,20 @@
                 newValue: $scope.inputValue
               });
 
-            if (validationResult.then) { // promise
+            if (validationResult && validationResult.then) { // promise
               validationResult
                 .then(_onSuccess)
                 .catch(_onFailure)
                 .finally(_onEnd);
 
-            } else if (validationResult) {
+            } else if (validationResult ||
+                typeof validationResult === 'undefined') {
               _onSuccess();
-              _onEnd();
+              _onEnd(true);
 
             } else {
               _onFailure();
-              _onEnd();
+              _onEnd(true);
             }
           }
 
@@ -139,14 +140,6 @@
               scope.cancelOnBlur = true;
             }
 
-            // check if proper validation method is provided:
-            if (!attrs.inlineEditValidation ||
-              typeof scope.$parent.$eval(attrs.inlineEditValidation.split('(')[0]) !== 'function') {
-              scope.validate = function() {
-                return true;
-              };
-            }
-
             var container = angular.element(
               '<div class="ng-inline-edit" ' +
                 'ng-class="{\'ng-inline-edit--validating\': validating, ' +
@@ -161,16 +154,20 @@
             var innerContainer = angular.element(
               '<div class="ng-inline-edit__inner-container"></div>');
 
-            innerContainer
-              // text
-              .append(angular.element(
-                '<span class="ng-inline-edit__text" ' +
-                  'ng-hide="editMode">{{model}}</span>'))
-              // button
-              .append(angular.element(
+            // text
+            innerContainer.append(angular.element(
+              '<span class="ng-inline-edit__text" ' +
+                (attrs.hasOwnProperty('inlineEditOnClick') ?
+                  'ng-click="editText()" ' : '') +
+                'ng-hide="editMode">{{model}}</span>'));
+
+            // button
+            if (attrs.inlineEditButtonHtml) {
+              innerContainer.append(angular.element(
                 '<a class="ng-inline-edit__button" ' +
                   'ng-show="!editMode" ' +
-                  'ng-click="editText()">' + (attrs.inlineEditButtonHtml || '') + '</a>'));
+                  'ng-click="editText()">' + attrs.inlineEditButtonHtml + '</a>'));
+            }
 
             container
               .append(input)
