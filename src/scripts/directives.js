@@ -21,33 +21,22 @@
               scope.cancelOnBlur = true;
             }
 
-            // check if proper validation method is provided, otherwise use a fake promise
+            // check if proper validation method is provided:
             if (!attrs.inlineEditValidation ||
               typeof scope.$parent.$eval(attrs.inlineEditValidation.split('(')[0]) !== 'function') {
               scope.validate = function() {
-                return {
-                  then: function(callback) {
-                    callback();
-                    return {
-                      catch: function() {
-                        return {
-                          finally: function(callback) {
-                            callback();
-                          }
-                        };
-                      }
-                    };
-                  }
-                };
+                return true;
               };
             }
 
             var container = angular.element(
               '<div class="ng-inline-edit" ' +
-                'ng-class="{\'ng-inline-edit--validating\': validating, \'ng-inline-edit--error\': validationError}">');
+                'ng-class="{\'ng-inline-edit--validating\': validating, ' +
+                  '\'ng-inline-edit--error\': validationError}">');
 
             var input = angular.element(
               '<input type="text" class="ng-inline-edit__input" ' +
+                'ng-disabled="validating" ' +
                 'ng-show="editMode" ' +
                 'ng-keyup="onInputKeyup($event)" ' +
                 'ng-model="inputValue" />');

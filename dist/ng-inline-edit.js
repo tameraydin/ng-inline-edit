@@ -10,50 +10,105 @@
     .module('angularInlineEdit.controllers', [])
     .controller('InlineEditController', ['$scope', '$document', '$timeout',
       function($scope, $document, $timeout) {
+        $scope.validationError = false;
+        $scope.validating = false;
         $scope.cancelOnBlur = false;
         $scope.editMode = false;
         $scope.inputValue = '';
 
-        $scope.editText = function() {
-          $scope.inputValue = $scope.model;
+        $scope.editText = function(inputValue) {
           $scope.editMode = true;
+          $scope.inputValue = (typeof inputValue === 'string') ?
+            inputValue : $scope.model;
+
           $timeout(function() {
             $scope.editInput[0].focus();
             $document.bind('click', $scope.onDocumentClick);
           }, 0);
         };
 
-        $scope.applyText = function(cancel, byDOMClick) {
-          if (!cancel && $scope.inputValue && $scope.model !== $scope.inputValue) {
-            $scope.model = $scope.inputValue;
+        $scope.applyText = function(cancel, byDOM) {
+          var inputValue = $scope.inputValue; // initial input value
+          $scope.validationError = false;
+
+          function _onSuccess() {
+            $scope.model = inputValue;
             $scope.callback({
-              newValue: $scope.model
+              newValue: inputValue
             });
+
+            $scope.editMode = false;
           }
 
-          $scope.editMode = false;
-          if (byDOMClick) {
-            $scope.$apply();
+          function _onFailure() {
+            $scope.validationError = true;
+            $timeout(function() {
+              $scope.editText(inputValue);
+            }, 0);
           }
+
+          function _onEnd() {
+            $scope.validating = false;
+            if (byDOM) {
+              $scope.$apply();
+            }
+          }
+
+          if (cancel || $scope.model === inputValue) {
+            $scope.editMode = false;
+            if (byDOM) {
+              $scope.$apply();
+            }
+
+          } else {
+            $scope.validating = true;
+            if (byDOM) {
+              $scope.$apply();
+            }
+
+            var validationResult = $scope.validate({
+                newValue: $scope.inputValue
+              });
+
+            if (validationResult.then) { // promise
+              validationResult
+                .then(_onSuccess)
+                .catch(_onFailure)
+                .finally(_onEnd);
+
+            } else if (validationResult) {
+              _onSuccess();
+              _onEnd();
+
+            } else {
+              _onFailure();
+              _onEnd();
+            }
+          }
+
           $document.unbind('click', $scope.onDocumentClick);
         };
 
         $scope.onInputKeyup = function(event) {
-          switch (event.keyCode) {
-            case 13: // ENTER
-              $scope.applyText(false, false);
-              break;
-            case 27: // ESC
-              $scope.applyText(true, false);
-              break;
-            default:
-              break;
+          if (!$scope.validating) {
+            switch (event.keyCode) {
+              case 13: // ENTER
+                $scope.applyText(false, false);
+                break;
+              case 27: // ESC
+                $scope.applyText(true, false);
+                break;
+              default:
+                break;
+            }
           }
         };
 
         $scope.onDocumentClick = function(event) {
-          if (event.target !== $scope.editInput[0]) {
-            $scope.applyText($scope.cancelOnBlur, true);
+          if (!$scope.validating) {
+            if (event.target !== $scope.editInput[0]) {
+              $scope.applyText($scope.cancelOnBlur, true);
+            }
           }
         };
       }
@@ -75,7 +130,8 @@
           controller: 'InlineEditController',
           scope: {
             model: '=inlineEdit',
-            callback: '&inlineEditCallback'
+            callback: '&inlineEditCallback',
+            validate: '&inlineEditValidation'
           },
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
@@ -83,15 +139,29 @@
               scope.cancelOnBlur = true;
             }
 
+            // check if proper validation method is provided:
+            if (!attrs.inlineEditValidation ||
+              typeof scope.$parent.$eval(attrs.inlineEditValidation.split('(')[0]) !== 'function') {
+              scope.validate = function() {
+                return true;
+              };
+            }
+
+            var container = angular.element(
+              '<div class="ng-inline-edit" ' +
+                'ng-class="{\'ng-inline-edit--validating\': validating, ' +
+                  '\'ng-inline-edit--error\': validationError}">');
+
             var input = angular.element(
               '<input type="text" class="ng-inline-edit__input" ' +
+                'ng-disabled="validating" ' +
                 'ng-show="editMode" ' +
                 'ng-keyup="onInputKeyup($event)" ' +
                 'ng-model="inputValue" />');
-            var container = angular.element(
-              '<div class="ng-inline-edit__container"></div>');
+            var innerContainer = angular.element(
+              '<div class="ng-inline-edit__inner-container"></div>');
 
-            container
+            innerContainer
               // text
               .append(angular.element(
                 '<span class="ng-inline-edit__text" ' +
@@ -99,11 +169,14 @@
               // button
               .append(angular.element(
                 '<a class="ng-inline-edit__button" ' +
-                  'ng-show="model && !editMode" ' +
+                  'ng-show="!editMode" ' +
                   'ng-click="editText()">' + (attrs.inlineEditButtonHtml || '') + '</a>'));
 
-            element
+            container
               .append(input)
+              .append(innerContainer);
+
+            element
               .append(container);
 
             scope.editInput = input;

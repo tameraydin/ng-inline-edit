@@ -12,9 +12,10 @@
         $scope.inputValue = '';
 
         $scope.editText = function(inputValue) {
+          $scope.editMode = true;
           $scope.inputValue = (typeof inputValue === 'string') ?
             inputValue : $scope.model;
-          $scope.editMode = true;
+
           $timeout(function() {
             $scope.editInput[0].focus();
             $document.bind('click', $scope.onDocumentClick);
@@ -22,40 +23,62 @@
         };
 
         $scope.applyText = function(cancel, byDOM) {
+          var inputValue = $scope.inputValue; // initial input value
           $scope.validationError = false;
 
-          if (cancel) {
+          function _onSuccess() {
+            $scope.model = inputValue;
+            $scope.callback({
+              newValue: inputValue
+            });
+
+            $scope.editMode = false;
+          }
+
+          function _onFailure() {
+            $scope.validationError = true;
+            $timeout(function() {
+              $scope.editText(inputValue);
+            }, 0);
+          }
+
+          function _onEnd() {
+            $scope.validating = false;
+            if (byDOM) {
+              $scope.$apply();
+            }
+          }
+
+          if (cancel || $scope.model === inputValue) {
             $scope.editMode = false;
             if (byDOM) {
               $scope.$apply();
             }
 
-          } else if ($scope.model !== $scope.inputValue) {
-            var inputValue = $scope.inputValue;
-
+          } else {
             $scope.validating = true;
             if (byDOM) {
               $scope.$apply();
             }
 
-            $scope.validate({
-              newValue: $scope.inputValue
-            })
-              .then(function() {
-                $scope.model = $scope.inputValue;
-                $scope.callback({
-                  newValue: $scope.model
-                });
-
-                $scope.editMode = false;
-              })
-              .catch(function() {
-                $scope.validationError = true;
-                $scope.editText(inputValue);
-              })
-              .finally(function() {
-                $scope.validating = false;
+            var validationResult = $scope.validate({
+                newValue: $scope.inputValue
               });
+
+            if (validationResult.then) { // promise
+              validationResult
+                .then(_onSuccess)
+                .catch(_onFailure)
+                .finally(_onEnd);
+
+            } else if (validationResult) {
+              _onSuccess();
+              _onEnd();
+
+            } else {
+              _onFailure();
+              _onEnd();
+            }
           }
 
           $document.unbind('click', $scope.onDocumentClick);
