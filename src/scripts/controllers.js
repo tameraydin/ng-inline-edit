@@ -65,13 +65,14 @@
                 newValue: $scope.inputValue
               });
 
-            if (validationResult.then) { // promise
+            if (validationResult && validationResult.then) { // promise
               validationResult
                 .then(_onSuccess)
                 .catch(_onFailure)
                 .finally(_onEnd);
 
-            } else if (validationResult) {
+            } else if (validationResult ||
+                typeof validationResult === 'undefined') {
               _onSuccess();
               _onEnd();
 

@@ -21,14 +21,6 @@
               scope.cancelOnBlur = true;
             }
 
-            // check if proper validation method is provided:
-            if (!attrs.inlineEditValidation ||
-              typeof scope.$parent.$eval(attrs.inlineEditValidation.split('(')[0]) !== 'function') {
-              scope.validate = function() {
-                return true;
-              };
-            }
-
             var container = angular.element(
               '<div class="ng-inline-edit" ' +
                 'ng-class="{\'ng-inline-edit--validating\': validating, ' +
@@ -43,16 +35,18 @@
             var innerContainer = angular.element(
               '<div class="ng-inline-edit__inner-container"></div>');
 
-            innerContainer
-              // text
-              .append(angular.element(
-                '<span class="ng-inline-edit__text" ' +
-                  'ng-hide="editMode">{{model}}</span>'))
-              // button
-              .append(angular.element(
+            // text
+            innerContainer.append(angular.element(
+              '<span class="ng-inline-edit__text" ' +
+                'ng-hide="editMode">{{model}}</span>'));
+
+            // button
+            if (attrs.inlineEditButtonHtml) {
+              innerContainer.append(angular.element(
                 '<a class="ng-inline-edit__button" ' +
                   'ng-show="!editMode" ' +
-                  'ng-click="editText()">' + (attrs.inlineEditButtonHtml || '') + '</a>'));
+                  'ng-click="editText()">' + attrs.inlineEditButtonHtml + '</a>'));
+            }
 
             container
               .append(input)
