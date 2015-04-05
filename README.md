@@ -47,7 +47,3 @@ Pass your model to ``inline-edit`` attribute on your HTML element and provide a 
 ## License
 
 MIT [http://tameraydin.mit-license.org/](http://tameraydin.mit-license.org/)
-
-## TODO
-
-- Add more unit tests
