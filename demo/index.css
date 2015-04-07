@@ -38,12 +38,19 @@ body {
   border-bottom: 1px dashed #333;
 }
 
-.first-demo .ng-inline-edit__button {
+.first-demo .ng-inline-edit__button,
+.first-demo .ng-inline-save__button{
   color: blue;
   cursor: pointer;
   margin-left: 5px;
+}
+.first-demo .ng-inline-save__button{
+  background:orange;
+  padding:3px 5px;
+
 }
 
 .first-demo .ng-inline-edit__button:hover {
   text-decoration: underline;
 }
+

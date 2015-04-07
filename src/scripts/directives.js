@@ -42,16 +42,23 @@
                   'ng-click="editText()" ' : '') +
                 'ng-hide="editMode">{{model}}</span>'));
 
-            // button
-            if (attrs.inlineEditButtonHtml) {
+            // edit button
+            if (attrs.inlineEditBtnEdit) {
               innerContainer.append(angular.element(
-                '<a class="ng-inline-edit__button" ' +
-                  'ng-show="!editMode" ' +
-                  'ng-click="editText()">' + attrs.inlineEditButtonHtml + '</a>'));
+                '<a class="ng-inline-edit__button" ng-show="!editMode" ' +
+                'ng-click="editText()">' + attrs.inlineEditBtnEdit + '</a>'));
+            }
+
+            // save button
+            if (attrs.inlineEditBtnSave) {
+              var saveBtn = angular.element(
+                '<a class="ng-inline-save__button" ng-show="editMode" ' +
+                'ng-click="applyText(false, false)">' + attrs.inlineEditBtnSave + '</a>');
             }
 
             container
               .append(input)
+              .append(saveBtn || '')
               .append(innerContainer);
 
             element

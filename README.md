@@ -29,7 +29,8 @@ Pass your model to ``inline-edit`` attribute on your HTML element and provide a 
 <!-- with optional attributes:
   inline-edit-callback="yourListener(newValue)"
   inline-edit-validation="yourValidator(enteredValue)"
-  inline-edit-button-html="Click to edit"
+  inline-edit-btn-edit="Click to edit"
+  inline-edit-btn-save="Save"
   inline-edit-cancel-on-blur
   inline-edit-on-click
 -->
