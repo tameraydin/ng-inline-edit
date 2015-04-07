@@ -54,8 +54,5 @@
   },
   "scripts": {
     "test": "gulp test-unit"
-  },
-  "dependencies": {
-    "gulp-install": "^0.4.0"
   }
 }
