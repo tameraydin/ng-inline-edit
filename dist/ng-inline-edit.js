@@ -1,5 +1,5 @@
 /**
- * ng-inline-edit v0.3.0 (http://tamerayd.in/ng-inline-edit)
+ * ng-inline-edit v0.4.0 (http://tamerayd.in/ng-inline-edit)
  * Copyright 2015 Tamer Aydin (http://tamerayd.in)
  * Licensed under MIT
  */
@@ -136,6 +136,7 @@
           },
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
+
             if (attrs.hasOwnProperty('inlineEditCancelOnBlur')) {
               scope.cancelOnBlur = true;
             }
@@ -151,6 +152,7 @@
                 'ng-show="editMode" ' +
                 'ng-keyup="onInputKeyup($event)" ' +
                 'ng-model="inputValue" />');
+
             var innerContainer = angular.element(
               '<div class="ng-inline-edit__inner-container"></div>');
 
@@ -159,14 +161,26 @@
               '<span class="ng-inline-edit__text" ' +
                 (attrs.hasOwnProperty('inlineEditOnClick') ?
                   'ng-click="editText()" ' : '') +
-                'ng-hide="editMode">{{model}}</span>'));
+                'ng-if="!editMode">{{model}}</span>'));
 
-            // button
-            if (attrs.inlineEditButtonHtml) {
+            // edit button
+            if (attrs.inlineEditBtnEdit) {
               innerContainer.append(angular.element(
-                '<a class="ng-inline-edit__button" ' +
-                  'ng-show="!editMode" ' +
-                  'ng-click="editText()">' + attrs.inlineEditButtonHtml + '</a>'));
+                '<a class="ng-inline-edit__button ng-inline-edit__button--edit" ' +
+                  'ng-if="!editMode" ' +
+                  'ng-click="editText()">' +
+                    attrs.inlineEditBtnEdit +
+                '</a>'));
+            }
+
+            // save button
+            if (attrs.inlineEditBtnSave) {
+              innerContainer.append(angular.element(
+                '<a class="ng-inline-edit__button ng-inline-edit__button--save" ' +
+                  'ng-if="editMode && !validating" ' +
+                  'ng-click="applyText(false, false)">' +
+                    attrs.inlineEditBtnSave +
+                '</a>'));
             }
 
             container
