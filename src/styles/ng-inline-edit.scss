@@ -9,4 +9,12 @@ $module: 'ng-inline-edit';
     -webkit-appearance: none;
     -moz-appearance: none;
   }
+
+  &__inner-container {
+    display: inline-block;
+  }
+
+  &__button {
+    cursor: pointer;
+  }
 }

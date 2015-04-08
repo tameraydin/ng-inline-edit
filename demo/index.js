@@ -12,11 +12,13 @@ angular
     $scope.demoValidator = function(newValue) {
       var defer = $q.defer();
 
+      // $timeout(function() {
       if (newValue.length > 5) {
         defer.resolve();
       } else {
         defer.reject();
       }
+      // }, 2000);
 
       return defer.promise;
     };
