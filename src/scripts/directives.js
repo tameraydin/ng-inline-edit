@@ -42,13 +42,13 @@
               '<span class="ng-inline-edit__text" ' +
                 (attrs.hasOwnProperty('inlineEditOnClick') ?
                   'ng-click="editText()" ' : '') +
-                'ng-hide="editMode">{{model}}</span>'));
+                'ng-if="!editMode">{{model}}</span>'));
 
             // edit button
             if (attrs.inlineEditBtnEdit) {
               innerContainer.append(angular.element(
                 '<a class="ng-inline-edit__button ng-inline-edit__button--edit" ' +
-                  'ng-show="!editMode" ' +
+                  'ng-if="!editMode" ' +
                   'ng-click="editText()">' +
                     attrs.inlineEditBtnEdit +
                 '</a>'));
