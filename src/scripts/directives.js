@@ -47,7 +47,7 @@
             // edit button
             if (attrs.inlineEditBtnEdit) {
               innerContainer.append(angular.element(
-                '<a class="ng-inline-edit__button" ' +
+                '<a class="ng-inline-edit__button ng-inline-edit__button--edit" ' +
                   'ng-show="!editMode" ' +
                   'ng-click="editText()">' +
                     attrs.inlineEditBtnEdit +
@@ -57,7 +57,7 @@
             // save button
             if (attrs.inlineEditBtnSave) {
               innerContainer.append(angular.element(
-                '<a class="ng-inline-save__button" ' +
+                '<a class="ng-inline-edit__button ng-inline-edit__button--save" ' +
                   'ng-show="editMode" ' +
                   'ng-click="applyText(false, false)">' +
                     attrs.inlineEditBtnSave +
