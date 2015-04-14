@@ -65,7 +65,7 @@ gulp.task('sass', function() {
 
 gulp.task('concat', function() {
   return gulp.src([
-      SOURCE.SCRIPTS + 'constants.js',
+      SOURCE.SCRIPTS + 'providers.js',
       SOURCE.SCRIPTS + 'controllers.js',
       SOURCE.SCRIPTS + 'directives.js',
       SOURCE.SCRIPTS + 'module.js'
