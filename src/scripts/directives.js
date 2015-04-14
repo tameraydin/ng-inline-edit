@@ -39,8 +39,7 @@
                 'ng-show="editMode" ' +
                 'ng-keyup="onInputKeyup($event)" ' +
                 'ng-model="inputValue" ' +
-                'placeholder="' + scope.placeholder + '" ' +
-                '/>');
+                'placeholder="' + (scope.placeholder || '') + '" />');
 
             var innerContainer = angular.element(
               '<div class="ng-inline-edit__inner-container"></div>');
@@ -48,6 +47,7 @@
             // text
             innerContainer.append(angular.element(
               '<span class="ng-inline-edit__text" ' +
+                'ng-class="{\'ng-inline-edit__text--placeholder\': !model}" ' +
                 (attrs.hasOwnProperty('inlineEditOnClick') || InlineEditConfig.editOnClick ?
                   'ng-click="editText()" ' : '') +
                 'ng-if="!editMode">{{model || placeholder}}</span>'));
