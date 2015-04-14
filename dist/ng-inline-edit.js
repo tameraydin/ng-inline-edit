@@ -1,8 +1,20 @@
 /**
- * ng-inline-edit v0.4.0 (http://tamerayd.in/ng-inline-edit)
+ * ng-inline-edit v0.5.0 (http://tamerayd.in/ng-inline-edit)
  * Copyright 2015 Tamer Aydin (http://tamerayd.in)
  * Licensed under MIT
  */
+(function(window, angular, undefined) {
+  'use strict';
+
+  angular
+    .module('angularInlineEdit.constants', [])
+    .constant('InlineEditConstants', {
+      CANCEL: 'cancel',
+      SAVE: 'save'
+    });
+
+})(window, window.angular);
+
 (function(window, angular, undefined) {
   'use strict';
 
@@ -12,6 +24,7 @@
       function($scope, $document, $timeout) {
         $scope.validationError = false;
         $scope.validating = false;
+        $scope.isOnBlurBehaviorValid = false;
         $scope.cancelOnBlur = false;
         $scope.editMode = false;
         $scope.inputValue = '';
@@ -23,7 +36,9 @@
 
           $timeout(function() {
             $scope.editInput[0].focus();
-            $document.bind('click', $scope.onDocumentClick);
+            if ($scope.isOnBlurBehaviorValid) {
+              $document.bind('click', $scope.onDocumentClick);
+            }
           }, 0);
         };
 
@@ -87,7 +102,9 @@
             }
           }
 
-          $document.unbind('click', $scope.onDocumentClick);
+          if ($scope.isOnBlurBehaviorValid) {
+            $document.unbind('click', $scope.onDocumentClick);
+          }
         };
 
         $scope.onInputKeyup = function(event) {
@@ -122,10 +139,11 @@
 
   angular
     .module('angularInlineEdit.directives', [
+      'angularInlineEdit.constants',
       'angularInlineEdit.controllers'
     ])
-    .directive('inlineEdit', ['$compile',
-      function($compile) {
+    .directive('inlineEdit', ['$compile', 'InlineEditConstants',
+      function($compile, InlineEditConstants) {
         return {
           restrict: 'A',
           controller: 'InlineEditController',
@@ -137,8 +155,11 @@
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
 
-            if (attrs.hasOwnProperty('inlineEditCancelOnBlur')) {
-              scope.cancelOnBlur = true;
+            var onBlurBehavior = attrs.inlineEditOnBlur;
+            if (onBlurBehavior === InlineEditConstants.CANCEL ||
+                onBlurBehavior === InlineEditConstants.SAVE) {
+              scope.isOnBlurBehaviorValid = true;
+              scope.cancelOnBlur = onBlurBehavior === InlineEditConstants.CANCEL;
             }
 
             var container = angular.element(
@@ -183,6 +204,16 @@
                 '</a>'));
             }
 
+            // cancel button
+            if (attrs.inlineEditBtnCancel) {
+              innerContainer.append(angular.element(
+                '<a class="ng-inline-edit__button ng-inline-edit__button--cancel" ' +
+                  'ng-if="editMode && !validating" ' +
+                  'ng-click="applyText(true, false)">' +
+                    attrs.inlineEditBtnCancel +
+                '</a>'));
+            }
+
             container
               .append(input)
               .append(innerContainer);
@@ -208,6 +239,7 @@
 
   angular
     .module('angularInlineEdit', [
+      'angularInlineEdit.constants',
       'angularInlineEdit.controllers',
       'angularInlineEdit.directives'
     ]);
