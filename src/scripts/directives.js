@@ -13,6 +13,7 @@
           controller: 'InlineEditController',
           scope: {
             model: '=inlineEdit',
+            placeholder: '@inlineEditPlaceholder',
             callback: '&inlineEditCallback',
             validate: '&inlineEditValidation'
           },
@@ -37,7 +38,9 @@
                 'ng-disabled="validating" ' +
                 'ng-show="editMode" ' +
                 'ng-keyup="onInputKeyup($event)" ' +
-                'ng-model="inputValue" />');
+                'ng-model="inputValue" ' +
+                'placeholder="' + scope.placeholder + '" ' +
+                '/>');
 
             var innerContainer = angular.element(
               '<div class="ng-inline-edit__inner-container"></div>');
@@ -47,7 +50,7 @@
               '<span class="ng-inline-edit__text" ' +
                 (attrs.hasOwnProperty('inlineEditOnClick') || InlineEditConfig.editOnClick ?
                   'ng-click="editText()" ' : '') +
-                'ng-if="!editMode">{{model}}</span>'));
+                'ng-if="!editMode">{{model || placeholder}}</span>'));
 
             // edit button
             var inlineEditBtnEdit = attrs.hasOwnProperty('inlineEditBtnEdit') ?
