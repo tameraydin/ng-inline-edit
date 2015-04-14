@@ -7,9 +7,12 @@
   <title>ng-inline-edit</title>
   <link rel="stylesheet" href="index.css">
   <link rel="stylesheet" href="../dist/ng-inline-edit.css">
+  <link rel="stylesheet" href="../bower_components/angular-material/angular-material.min.css">
 
-  <script src="../bower_components/angular/angular.js"></script>
-  <script src="../src/scripts/providers.js"></script>
+  <script src="../bower_components/angular/angular.min.js"></script>
+  <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="../bower_components/angular-aria/angular-aria.min.js"></script>
+  <script src="../bower_components/angular-material/angular-material.min.js"></script>
   <script src="../src/scripts/controllers.js"></script>
   <script src="../src/scripts/directives.js"></script>
   <script src="../src/scripts/module.js"></script>
@@ -18,16 +21,117 @@
 
 </head>
 <body ng-app="demoApp" ng-controller="demoMainController" ng-cloak>
-  <div class="demo-wrapper">
-
-    <span
-      class="first-demo"
-      inline-edit="demoModel"
-      inline-edit-callback="demoChangeListener(newValue)"
-      inline-edit-btn-save="Save"
-      inline-edit-on-blur="save"
-      inline-edit-validation="demoValidator(newValue)"></span>
-
+  <div layout="column" layout-align="center center">
+    <div class="demo-wrapper">
+      <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+          <h3>
+            <span>Plain example</span>
+          </h3>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Source" ng-click="isSourceVisible[0] = !isSourceVisible[0]">
+            Source
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-tabs class="md-accent" ng-show="isSourceVisible[0]" md-selected="tabData.selectedIndex">
+        <md-tab id="tab1">
+          <md-tab-label>HTML</md-tab-label>
+          <md-tab-template>
+            <md-content class="md-primary">
+              HTML
+            </md-content>
+          </md-tab-template>
+        </md-tab>
+        <md-tab id="tab2">
+          <md-tab-label>JS</md-tab-label>
+          <md-content class="md-primary">
+              JS
+            </md-content>
+        </md-tab>
+        <md-tab id="tab3">
+          <md-tab-label>CSS</md-tab-label>
+          <md-content class="md-primary">
+              CSS
+            </md-content>
+        </md-tab>
+      </md-tabs>
+      <md-content>
+        ORNEK
+      </md-content>
+      <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+          <h3>
+            <span>Without button</span>
+          </h3>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Source" ng-click="isSourceVisible[1] = !isSourceVisible[1]">
+            Source
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-tabs class="md-accent" ng-show="isSourceVisible[1]" md-selected="tabData.selectedIndex">
+        <md-tab id="tab1">
+          <md-tab-label>HTML</md-tab-label>
+          <md-tab-template>
+            <md-content class="md-primary">
+              HTML
+            </md-content>
+          </md-tab-template>
+        </md-tab>
+        <md-tab id="tab2">
+          <md-tab-label>JS</md-tab-label>
+          <md-content class="md-primary">
+              JS
+            </md-content>
+        </md-tab>
+        <md-tab id="tab3">
+          <md-tab-label>CSS</md-tab-label>
+          <md-content class="md-primary">
+              CSS
+            </md-content>
+        </md-tab>
+      </md-tabs>
+      <md-content class="md-accent">
+        ORNEK
+      </md-content>
+      <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+          <h3>
+            <span>Server validation</span>
+          </h3>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Source" ng-click="isSourceVisible[2] = !isSourceVisible[2]">
+            Source
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-tabs class="md-accent" ng-show="isSourceVisible[2]" md-selected="tabData.selectedIndex">
+        <md-tab id="tab1">
+          <md-tab-label>HTML</md-tab-label>
+          <md-tab-template>
+            <md-content class="md-primary">
+              HTML
+            </md-content>
+          </md-tab-template>
+        </md-tab>
+        <md-tab id="tab2">
+          <md-tab-label>JS</md-tab-label>
+          <md-content class="md-primary">
+              JS
+            </md-content>
+        </md-tab>
+        <md-tab id="tab3">
+          <md-tab-label>CSS</md-tab-label>
+          <md-content class="md-primary">
+              CSS
+            </md-content>
+        </md-tab>
+      </md-tabs>
+      <md-content class="md-accent">
+        ORNEK
+      </md-content>
+    </div>
   </div>
 </body>
 </html>
