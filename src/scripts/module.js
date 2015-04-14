@@ -3,6 +3,7 @@
 
   angular
     .module('angularInlineEdit', [
+      'angularInlineEdit.constants',
       'angularInlineEdit.controllers',
       'angularInlineEdit.directives'
     ]);

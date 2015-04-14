@@ -7,6 +7,7 @@
       function($scope, $document, $timeout) {
         $scope.validationError = false;
         $scope.validating = false;
+        $scope.isOnBlurBehaviorValid = false;
         $scope.cancelOnBlur = false;
         $scope.editMode = false;
         $scope.inputValue = '';
@@ -18,7 +19,9 @@
 
           $timeout(function() {
             $scope.editInput[0].focus();
-            $document.bind('click', $scope.onDocumentClick);
+            if ($scope.isOnBlurBehaviorValid) {
+              $document.bind('click', $scope.onDocumentClick);
+            }
           }, 0);
         };
 
@@ -82,7 +85,9 @@
             }
           }
 
-          $document.unbind('click', $scope.onDocumentClick);
+          if ($scope.isOnBlurBehaviorValid) {
+            $document.unbind('click', $scope.onDocumentClick);
+          }
         };
 
         $scope.onInputKeyup = function(event) {

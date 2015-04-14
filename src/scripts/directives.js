@@ -3,10 +3,11 @@
 
   angular
     .module('angularInlineEdit.directives', [
+      'angularInlineEdit.constants',
       'angularInlineEdit.controllers'
     ])
-    .directive('inlineEdit', ['$compile',
-      function($compile) {
+    .directive('inlineEdit', ['$compile', 'InlineEditConstants',
+      function($compile, InlineEditConstants) {
         return {
           restrict: 'A',
           controller: 'InlineEditController',
@@ -18,8 +19,11 @@
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
 
-            if (attrs.hasOwnProperty('inlineEditCancelOnBlur')) {
-              scope.cancelOnBlur = true;
+            var onBlurBehavior = attrs.inlineEditOnBlur;
+            if (onBlurBehavior === InlineEditConstants.CANCEL ||
+                onBlurBehavior === InlineEditConstants.SAVE) {
+              scope.isOnBlurBehaviorValid = true;
+              scope.cancelOnBlur = onBlurBehavior === InlineEditConstants.CANCEL;
             }
 
             var container = angular.element(
@@ -61,6 +65,16 @@
                   'ng-if="editMode && !validating" ' +
                   'ng-click="applyText(false, false)">' +
                     attrs.inlineEditBtnSave +
+                '</a>'));
+            }
+
+            // cancel button
+            if (attrs.inlineEditBtnCancel) {
+              innerContainer.append(angular.element(
+                '<a class="ng-inline-edit__button ng-inline-edit__button--cancel" ' +
+                  'ng-if="editMode && !validating" ' +
+                  'ng-click="applyText(true, false)">' +
+                    attrs.inlineEditBtnCancel +
                 '</a>'));
             }
 
