@@ -1,5 +1,5 @@
 /**
- * ng-inline-edit v0.5.0 (http://tamerayd.in/ng-inline-edit)
+ * ng-inline-edit v0.5.1 (http://tamerayd.in/ng-inline-edit)
  * Copyright 2015 Tamer Aydin (http://tamerayd.in)
  * Licensed under MIT
  */
@@ -7,7 +7,14 @@
   'use strict';
 
   angular
-    .module('angularInlineEdit.constants', [])
+    .module('angularInlineEdit.providers', [])
+    .value('InlineEditConfig', {
+      btnEdit: 'Edit',
+      btnSave: '',
+      btnCancel: '',
+      editOnClick: false,
+      onBlur: null
+    })
     .constant('InlineEditConstants', {
       CANCEL: 'cancel',
       SAVE: 'save'
@@ -139,11 +146,11 @@
 
   angular
     .module('angularInlineEdit.directives', [
-      'angularInlineEdit.constants',
+      'angularInlineEdit.providers',
       'angularInlineEdit.controllers'
     ])
-    .directive('inlineEdit', ['$compile', 'InlineEditConstants',
-      function($compile, InlineEditConstants) {
+    .directive('inlineEdit', ['$compile', 'InlineEditConfig', 'InlineEditConstants',
+      function($compile, InlineEditConfig, InlineEditConstants) {
         return {
           restrict: 'A',
           controller: 'InlineEditController',
@@ -155,7 +162,8 @@
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
 
-            var onBlurBehavior = attrs.inlineEditOnBlur;
+            var onBlurBehavior = attrs.hasOwnProperty('inlineEditOnBlur') ?
+              attrs.inlineEditOnBlur : InlineEditConfig.onBlur;
             if (onBlurBehavior === InlineEditConstants.CANCEL ||
                 onBlurBehavior === InlineEditConstants.SAVE) {
               scope.isOnBlurBehaviorValid = true;
@@ -180,37 +188,43 @@
             // text
             innerContainer.append(angular.element(
               '<span class="ng-inline-edit__text" ' +
-                (attrs.hasOwnProperty('inlineEditOnClick') ?
+                (attrs.hasOwnProperty('inlineEditOnClick') || InlineEditConfig.editOnClick ?
                   'ng-click="editText()" ' : '') +
                 'ng-if="!editMode">{{model}}</span>'));
 
             // edit button
-            if (attrs.inlineEditBtnEdit) {
+            var inlineEditBtnEdit = attrs.hasOwnProperty('inlineEditBtnEdit') ?
+              attrs.inlineEditBtnEdit : InlineEditConfig.btnEdit;
+            if (inlineEditBtnEdit) {
               innerContainer.append(angular.element(
                 '<a class="ng-inline-edit__button ng-inline-edit__button--edit" ' +
                   'ng-if="!editMode" ' +
                   'ng-click="editText()">' +
-                    attrs.inlineEditBtnEdit +
+                    inlineEditBtnEdit +
                 '</a>'));
             }
 
             // save button
-            if (attrs.inlineEditBtnSave) {
+            var inlineEditBtnSave = attrs.hasOwnProperty('inlineEditBtnSave') ?
+              attrs.inlineEditBtnSave : InlineEditConfig.btnSave;
+            if (inlineEditBtnSave) {
               innerContainer.append(angular.element(
                 '<a class="ng-inline-edit__button ng-inline-edit__button--save" ' +
                   'ng-if="editMode && !validating" ' +
                   'ng-click="applyText(false, false)">' +
-                    attrs.inlineEditBtnSave +
+                    inlineEditBtnSave +
                 '</a>'));
             }
 
             // cancel button
-            if (attrs.inlineEditBtnCancel) {
+            var inlineEditBtnCancel = attrs.hasOwnProperty('inlineEditBtnCancel') ?
+              attrs.inlineEditBtnCancel : InlineEditConfig.btnCancel;
+            if (inlineEditBtnCancel) {
               innerContainer.append(angular.element(
                 '<a class="ng-inline-edit__button ng-inline-edit__button--cancel" ' +
                   'ng-if="editMode && !validating" ' +
                   'ng-click="applyText(true, false)">' +
-                    attrs.inlineEditBtnCancel +
+                    inlineEditBtnCancel +
                 '</a>'));
             }
 
@@ -239,7 +253,7 @@
 
   angular
     .module('angularInlineEdit', [
-      'angularInlineEdit.constants',
+      'angularInlineEdit.providers',
       'angularInlineEdit.controllers',
       'angularInlineEdit.directives'
     ]);
