@@ -13,6 +13,7 @@
   <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
   <script src="../bower_components/angular-aria/angular-aria.min.js"></script>
   <script src="../bower_components/angular-material/angular-material.min.js"></script>
+  <script src="../src/scripts/providers.js"></script>
   <script src="../src/scripts/controllers.js"></script>
   <script src="../src/scripts/directives.js"></script>
   <script src="../src/scripts/module.js"></script>
@@ -21,7 +22,7 @@
 
 </head>
 <body ng-app="demoApp" ng-controller="demoMainController" ng-cloak>
-  <div layout="column" layout-align="center center">
+  <div layout="column" layout-align="center center" class="app-wrapper">
     <div class="demo-wrapper">
       <md-toolbar md-scroll-shrink>
         <div class="md-toolbar-tools">
@@ -34,7 +35,7 @@
           </md-button>
         </div>
       </md-toolbar>
-      <md-tabs class="md-accent" ng-show="isSourceVisible[0]" md-selected="tabData.selectedIndex">
+      <md-tabs class="md-accent fade-in fade-out" ng-show="isSourceVisible[0]" md-selected="tabData[0].selectedIndex">
         <md-tab id="tab1">
           <md-tab-label>HTML</md-tab-label>
           <md-tab-template>
@@ -70,7 +71,7 @@
           </md-button>
         </div>
       </md-toolbar>
-      <md-tabs class="md-accent" ng-show="isSourceVisible[1]" md-selected="tabData.selectedIndex">
+      <md-tabs class="md-accent fade-in fade-out" ng-show="isSourceVisible[1]" md-selected="tabData[1].selectedIndex">
         <md-tab id="tab1">
           <md-tab-label>HTML</md-tab-label>
           <md-tab-template>
@@ -106,7 +107,7 @@
           </md-button>
         </div>
       </md-toolbar>
-      <md-tabs class="md-accent" ng-show="isSourceVisible[2]" md-selected="tabData.selectedIndex">
+      <md-tabs class="md-accent fade-in fade-out" ng-show="isSourceVisible[2]" md-selected="tabData[2].selectedIndex">
         <md-tab id="tab1">
           <md-tab-label>HTML</md-tab-label>
           <md-tab-template>

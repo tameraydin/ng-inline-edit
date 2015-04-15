@@ -19,10 +19,34 @@ md-toolbar {
   margin-top: 30px;
 }
 
+.app-wrapper {
+  background: #f0f0f0;
+  padding-bottom: 30px;
+}
+
 .demo-wrapper {
   position: relative;
   width: 600px;
   margin: 0 auto;
+}
+
+.fade-in,
+.fade-out {
+  -webkit-transition: opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) .3s;
+  -moz-transition: opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) .3s;
+  transition: opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) .3s;
+}
+
+.fade-in.ng-hide-remove,
+.fade-out.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+  display: block !important;
+}
+
+.fade-out.ng-hide-add,
+.fade-in.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+  display: block !important;
 }
 
 /*.first-demo .ng-inline-edit {

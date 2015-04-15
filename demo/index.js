@@ -2,6 +2,7 @@
 
 angular
   .module('demoApp', [
+    'ngAnimate',
     'ngMaterial',
     'angularInlineEdit'
   ])
@@ -11,9 +12,13 @@ angular
       .accentPalette('red');
   })
   .controller('demoMainController', function($scope, $timeout, $q) {
-    $scope.tabData = {
-      selectedIndex : 0
-    };
+    $scope.tabData = [{
+      selectedIndex: 0
+    }, {
+      selectedIndex: 0
+    }, {
+      selectedIndex: 0
+    }];
 
     $scope.demoModel = 'An editable text';
     $scope.demoChangeListener = function(newValue) {
