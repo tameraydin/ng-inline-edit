@@ -57,8 +57,11 @@
             </md-content>
         </md-tab>
       </md-tabs>
-      <md-content>
-        ORNEK
+      <md-content class="example-1">
+        <span
+          inline-edit="examples[0].model"
+          inline-edit-validation="examples[0].validator(newValue)"
+          inline-edit-on-blur="cancel"></span>
       </md-content>
       <md-toolbar md-scroll-shrink>
         <div class="md-toolbar-tools">

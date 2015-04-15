@@ -20,7 +20,13 @@ angular
       selectedIndex: 0
     }];
 
-    $scope.demoModel = 'An editable text';
+    $scope.examples = [{
+      model: 'An editable text',
+      validator: function(newValue) {
+        return !!newValue;
+      }
+    }];
+
     $scope.demoChangeListener = function(newValue) {
       alert('Accepted value: ' + newValue);
     };

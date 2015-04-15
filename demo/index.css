@@ -49,29 +49,16 @@ md-toolbar {
   display: block !important;
 }
 
-/*.first-demo .ng-inline-edit {
-  padding: 20px;
-  background: gray;
-}
-
-.first-demo .ng-inline-edit--validating {
-  background: blue;
-}
-
-.first-demo .ng-inline-edit--error {
-  background: red;
-}
-
-.first-demo .ng-inline-edit__input {
+.example-1 .ng-inline-edit__input {
   font-size: 1em;
   border-bottom: 1px dashed #333;
 }
 
-.first-demo .ng-inline-edit__button {
+.example-1 .ng-inline-edit__button {
   color: blue;
   margin-left: 5px;
 }
 
-.first-demo .ng-inline-edit__button:hover {
+.example-1 .ng-inline-edit__button:hover {
   text-decoration: underline;
-}*/
+}
