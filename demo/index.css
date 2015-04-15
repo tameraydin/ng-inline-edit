@@ -3,6 +3,11 @@ body {
   background: #f0f0f0 !important;
 }
 
+pre {
+  margin: 0 !important;
+  padding: 20px !important;
+}
+
 *, *:before, *:after {
   box-sizing: border-box;
 }
@@ -12,7 +17,7 @@ md-content {
 }
 
 md-tabs md-content.md-default-theme {
-  background: rgb(66,66,66);
+  padding: 0;
 }
 
 md-toolbar {

@@ -6,6 +6,7 @@
 
   <title>ng-inline-edit</title>
   <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/themes/solarized-dark.css">
   <link rel="stylesheet" href="../dist/ng-inline-edit.css">
   <link rel="stylesheet" href="../bower_components/angular-material/angular-material.min.css">
 
@@ -13,6 +14,12 @@
   <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
   <script src="../bower_components/angular-aria/angular-aria.min.js"></script>
   <script src="../bower_components/angular-material/angular-material.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/rainbow.min.js"></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/rainbow/1.1.8/js/language/generic.min.js'></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/rainbow/1.1.8/js/language/html.js'></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/rainbow/1.1.8/js/language/javascript.js'></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/rainbow/1.1.8/js/language/css.js'></script>
+
   <script src="../src/scripts/providers.js"></script>
   <script src="../src/scripts/controllers.js"></script>
   <script src="../src/scripts/directives.js"></script>
@@ -40,14 +47,20 @@
           <md-tab-label>HTML</md-tab-label>
           <md-tab-template>
             <md-content class="md-primary">
-              HTML
+              <pre><code data-language="html">&lt;span
+  inline-edit=&quot;myModel&quot;
+  inline-edit-validation=&quot;myValidator(newValue)&quot;
+  inline-edit-on-blur=&quot;cancel&quot;&gt;&lt;/span&gt;</code></pre>
             </md-content>
           </md-tab-template>
         </md-tab>
         <md-tab id="tab2">
           <md-tab-label>JS</md-tab-label>
           <md-content class="md-primary">
-              JS
+              <pre><code data-language="javascript">$scope.myModel = &#39;An editable text&#39;;
+$scope.myValidator = function(newValue) {
+  return !!newValue;
+};</code></pre>
             </md-content>
         </md-tab>
         <md-tab id="tab3">
