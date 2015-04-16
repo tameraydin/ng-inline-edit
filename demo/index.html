@@ -59,6 +59,7 @@
           <md-content class="md-primary">
               <pre><code data-language="javascript">$scope.myModel = &#39;An editable text&#39;;
 $scope.myValidator = function(newValue) {
+  // a simple required field:
   return !!newValue;
 };</code></pre>
             </md-content>
@@ -66,7 +67,22 @@ $scope.myValidator = function(newValue) {
         <md-tab id="tab3">
           <md-tab-label>CSS</md-tab-label>
           <md-content class="md-primary">
-              CSS
+              <pre><code data-language="css">.ng-inline-edit__input {
+  border-bottom: 1px dashed #333;
+}
+
+.ng-inline-edit--error .ng-inline-edit__input {
+  border-color: #f00;
+}
+
+.ng-inline-edit__button {
+  color: #00f;
+  margin-left: 5px;
+}
+
+.ng-inline-edit__button:hover {
+  text-decoration: underline;
+}</code></pre>
             </md-content>
         </md-tab>
       </md-tabs>

@@ -54,9 +54,14 @@ md-toolbar {
   display: block !important;
 }
 
+/* example-1 */
 .example-1 .ng-inline-edit__input {
   font-size: 1em;
   border-bottom: 1px dashed #333;
+}
+
+.example-1 .ng-inline-edit--error .ng-inline-edit__input {
+  border-color: #ff0000;
 }
 
 .example-1 .ng-inline-edit__button {
