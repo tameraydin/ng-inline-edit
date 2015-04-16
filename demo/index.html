@@ -42,6 +42,12 @@
           </md-button>
         </div>
       </md-toolbar>
+      <md-content class="example-1 md-accent">
+        <span
+          inline-edit="examples[0].model"
+          inline-edit-validation="examples[0].validator(value)"
+          inline-edit-on-blur="cancel"></span>
+      </md-content>
       <md-tabs class="md-accent fade-in fade-out" ng-show="isSourceVisible[0]" md-selected="tabData[0].selectedIndex">
         <md-tab id="tab1">
           <md-tab-label>HTML</md-tab-label>
@@ -86,12 +92,6 @@ $scope.myValidator = function(newValue) {
             </md-content>
         </md-tab>
       </md-tabs>
-      <md-content class="example-1">
-        <span
-          inline-edit="examples[0].model"
-          inline-edit-validation="examples[0].validator(newValue)"
-          inline-edit-on-blur="cancel"></span>
-      </md-content>
       <md-toolbar md-scroll-shrink>
         <div class="md-toolbar-tools">
           <h3>
@@ -103,31 +103,65 @@ $scope.myValidator = function(newValue) {
           </md-button>
         </div>
       </md-toolbar>
+      <md-content class="example-2 md-accent">
+        <span
+          inline-edit="examples[1].model"
+          inline-edit-callback="examples[1].callback(newValue)"
+          inline-edit-placeholder="{{examples[1].placeholder}}"
+          inline-edit-on-blur="save"
+          inline-edit-on-click
+          inline-edit-btn-edit=""></span>
+      </md-content>
       <md-tabs class="md-accent fade-in fade-out" ng-show="isSourceVisible[1]" md-selected="tabData[1].selectedIndex">
         <md-tab id="tab1">
           <md-tab-label>HTML</md-tab-label>
           <md-tab-template>
             <md-content class="md-primary">
-              HTML
+              <pre><code data-language="html">&lt;span
+  inline-edit=&quot;myModel&quot;
+  inline-edit-callback=&quot;myUpdateHandler(newValue)&quot;
+  inline-edit-placeholder=&quot;Type your value here&quot;
+  inline-edit-btn-edit=&quot;&quot;
+  inline-edit-on-blur=&quot;save&quot;
+  inline-edit-on-click&gt;&lt;/span&gt;</code></pre>
             </md-content>
           </md-tab-template>
         </md-tab>
         <md-tab id="tab2">
           <md-tab-label>JS</md-tab-label>
           <md-content class="md-primary">
-              JS
+              <pre><code data-language="javascript">$scope.myModel = &#39;Click here and delete me&#39;;
+$scope.myUpdateHandler = function(newValue) {
+  // check your console
+  console.log('value of your model is now: ' + newValue);
+};</code></pre>
             </md-content>
         </md-tab>
         <md-tab id="tab3">
           <md-tab-label>CSS</md-tab-label>
           <md-content class="md-primary">
-              CSS
+              <pre><code data-language="css">.ng-inline-edit__input {
+  padding: 0 3px;
+}
+
+.ng-inline-edit__text {
+  padding: 2px 3px;
+  font-weight: bold;
+}
+
+.ng-inline-edit__text:hover {
+  background: #ff0;
+  border-radius: 4px;
+}
+
+.ng-inline-edit__text--placeholder {
+  color: #999;
+  font-weight: normal;
+  font-style: italic;
+}</code></pre>
             </md-content>
         </md-tab>
       </md-tabs>
-      <md-content class="md-accent">
-        ORNEK
-      </md-content>
       <md-toolbar md-scroll-shrink>
         <div class="md-toolbar-tools">
           <h3>
@@ -139,31 +173,31 @@ $scope.myValidator = function(newValue) {
           </md-button>
         </div>
       </md-toolbar>
+      <md-content class="md-accent">
+        ORNEK
+      </md-content>
       <md-tabs class="md-accent fade-in fade-out" ng-show="isSourceVisible[2]" md-selected="tabData[2].selectedIndex">
         <md-tab id="tab1">
           <md-tab-label>HTML</md-tab-label>
           <md-tab-template>
             <md-content class="md-primary">
-              HTML
+              <pre><code data-language="html"></code></pre>
             </md-content>
           </md-tab-template>
         </md-tab>
         <md-tab id="tab2">
           <md-tab-label>JS</md-tab-label>
           <md-content class="md-primary">
-              JS
+              <pre><code data-language="javascript"></code></pre>
             </md-content>
         </md-tab>
         <md-tab id="tab3">
           <md-tab-label>CSS</md-tab-label>
           <md-content class="md-primary">
-              CSS
+              <pre><code data-language="css"></code></pre>
             </md-content>
         </md-tab>
       </md-tabs>
-      <md-content class="md-accent">
-        ORNEK
-      </md-content>
     </div>
   </div>
 </body>

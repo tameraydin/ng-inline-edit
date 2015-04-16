@@ -25,6 +25,12 @@ angular
       validator: function(newValue) {
         return !!newValue;
       }
+    }, {
+      model: 'Click here and delete me',
+      placeholder: 'Type your value here',
+      callback: function(newValue) {
+        console.log('value of your model is now: ' + newValue);
+      }
     }];
 
     $scope.demoChangeListener = function(newValue) {

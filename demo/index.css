@@ -54,9 +54,13 @@ md-toolbar {
   display: block !important;
 }
 
+.ng-inline-edit,
+.ng-inline-edit__input {
+  font-size: 1em;
+}
+
 /* example-1 */
 .example-1 .ng-inline-edit__input {
-  font-size: 1em;
   border-bottom: 1px dashed #333;
 }
 
@@ -71,4 +75,25 @@ md-toolbar {
 
 .example-1 .ng-inline-edit__button:hover {
   text-decoration: underline;
+}
+
+/* example-2 */
+.example-2 .ng-inline-edit__text {
+  padding: 2px 3px;
+  font-weight: bold;
+}
+
+.example-2 .ng-inline-edit__text:hover {
+  background: #ff0;
+  border-radius: 4px;
+}
+
+.example-2 .ng-inline-edit__text--placeholder {
+  color: #999;
+  font-weight: normal;
+  font-style: italic;
+}
+
+.example-2 .ng-inline-edit__input {
+  padding: 0 3px;
 }
