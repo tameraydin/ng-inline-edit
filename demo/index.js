@@ -31,22 +31,20 @@ angular
       callback: function(newValue) {
         console.log('value of your model is now: ' + newValue);
       }
-    }];
+    }, {
+      model: 'Need more than 10 chars',
+      validator: function(newValue) {
+        var defer = $q.defer();
 
-    $scope.demoChangeListener = function(newValue) {
-      alert('Accepted value: ' + newValue);
-    };
-    $scope.demoValidator = function(newValue) {
-      var defer = $q.defer();
+        $timeout(function() {
+          if (newValue.length > 10) {
+            defer.resolve();
+          } else {
+            defer.reject();
+          }
+        }, 2500);
 
-      // $timeout(function() {
-      if (newValue.length > 5) {
-        defer.resolve();
-      } else {
-        defer.reject();
+        return defer.promise;
       }
-      // }, 2000);
-
-      return defer.promise;
-    };
+    }];
   });

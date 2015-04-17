@@ -173,28 +173,102 @@ $scope.myUpdateHandler = function(newValue) {
           </md-button>
         </div>
       </md-toolbar>
-      <md-content class="md-accent">
-        ORNEK
+      <md-content class="example-3 md-accent">
+        <span
+          inline-edit="examples[2].model"
+          inline-edit-validation="examples[2].validator(newValue)"
+          inline-edit-btn-save="Save"
+          inline-edit-btn-cancel="Cancel"></span>
       </md-content>
       <md-tabs class="md-accent fade-in fade-out" ng-show="isSourceVisible[2]" md-selected="tabData[2].selectedIndex">
         <md-tab id="tab1">
           <md-tab-label>HTML</md-tab-label>
           <md-tab-template>
             <md-content class="md-primary">
-              <pre><code data-language="html"></code></pre>
+              <pre><code data-language="html">&lt;span
+  inline-edit=&quot;myModel&quot;
+  inline-edit-validation=&quot;validateOnServer(newValue)&quot;
+  inline-edit-btn-save=&quot;Save&quot;
+  inline-edit-btn-cancel=&quot;Cancel&quot;&gt;&lt;/span&gt;</code></pre>
             </md-content>
           </md-tab-template>
         </md-tab>
         <md-tab id="tab2">
           <md-tab-label>JS</md-tab-label>
           <md-content class="md-primary">
-              <pre><code data-language="javascript"></code></pre>
+              <pre><code data-language="javascript">$scope.myModel = &#39;Need more than 10 chars&#39;,
+$scope.validateOnServer = function(newValue) {
+  var defer = $q.defer();
+
+  // a fake server validation:
+  $timeout(function() {
+    if (newValue.length &gt; 10) { // should be more than 10 chars
+      defer.resolve();
+    } else {
+      defer.reject();
+    }
+  }, 2500);
+
+  return defer.promise;
+};</code></pre>
             </md-content>
         </md-tab>
         <md-tab id="tab3">
           <md-tab-label>CSS</md-tab-label>
           <md-content class="md-primary">
-              <pre><code data-language="css"></code></pre>
+              <pre><code data-language="css">.ng-inline-edit--validating:after {
+  content: &quot;&quot;;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url(ajax-loader.gif);
+}
+
+.ng-inline-edit--validating .ng-inline-edit__input {
+  background: #fff;
+  opacity: .4;
+}
+
+.ng-inline-edit--error .ng-inline-edit__input {
+  color: #f00;
+}
+
+.ng-inline-edit__button {
+  font-size: 0;
+  margin-left: 5px;
+  visibility: hidden;
+  opacity: .6;
+}
+
+.ng-inline-edit__button:hover {
+  opacity: 1;
+}
+
+.ng-inline-edit:hover .ng-inline-edit__button,
+.ng-inline-edit .ng-inline-edit__button--save,
+.ng-inline-edit .ng-inline-edit__button--cancel {
+  visibility: visible;
+}
+
+.ng-inline-edit__button:after {
+  font-size: 24px;
+  line-height: 24px;
+}
+
+.ng-inline-edit__button--edit:after {
+  content: &quot;\270E&quot;;
+  color: #00f;
+}
+
+.ng-inline-edit__button--save:after {
+  content: &quot;\2714&quot;;
+  color: #0f0;
+}
+
+.ng-inline-edit__button--cancel:after {
+  content: &quot;\2716&quot;;
+  color: #f00;
+}</code></pre>
             </md-content>
         </md-tab>
       </md-tabs>
