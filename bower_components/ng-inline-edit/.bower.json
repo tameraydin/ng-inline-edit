@@ -1,7 +1,7 @@
 {
   "name": "ng-inline-edit",
   "description": "Simple inline editing for HTML elements",
-  "version": "0.1.0",
+  "version": "0.5.2",
   "main": [
     "dist/ng-inline-edit.js",
     "dist/ng-inline-edit.css"
@@ -46,14 +46,14 @@
   "devDependencies": {
     "angular-mocks": "~1.3.13"
   },
-  "_release": "0.1.0",
+  "_release": "0.5.2",
   "_resolution": {
     "type": "version",
-    "tag": "0.1.0",
-    "commit": "125ad9967ca237baa83e32995c28bbd2f3084239"
+    "tag": "0.5.2",
+    "commit": "a3240c30ce2390e5530d748bb625121e060abb10"
   },
   "_source": "git://github.com/tameraydin/ng-inline-edit.git",
-  "_target": "~0.1.0",
+  "_target": "~0.5.2",
   "_originalSource": "ng-inline-edit",
   "_direct": true
 }

@@ -25,26 +25,23 @@ angular
 
 Pass your model to ``inline-edit`` attribute on your HTML element and provide a callback function to listen changes:
 ```html
-<span inline-edit="yourModel" inline-edit-callback="yourChangeListener(newValue)"></span>
+<span inline-edit="yourModel"></span>
 <!-- with optional attributes:
-  inline-edit-button-html="Edit"
-  inline-edit-cancel-on-blur
+  inline-edit-callback="yourListener(newValue)"
+  inline-edit-validation="yourValidator(enteredValue)"
+  inline-edit-placeholder="Type a value..."
+  inline-edit-btn-edit="Click to edit"
+  inline-edit-btn-save="Save me"
+  inline-edit-btn-cancel="Nevermind"
+  inline-edit-on-blur="cancel" // 'cancel' or 'save'
+  inline-edit-on-click
 -->
 ```
 
 ## Development
 
-1. Clone the repo or [download](https://github.com/tameraydin/ng-inline-edit/archive/master.zip).
-2. ``npm install && bower install``
-3. Setup E2E testing environment: ``npm install -g protractor && webdriver-manager update --standalone``
-4. Run ``gulp watch`` and open [http://localhost:8080/demo/index.html](http://localhost:8080/demo/index.html)
-5. Use ``gulp test-unit`` or ``gulp test-e2e`` to execute your tests
-6. Finally, be sure that selenium driver is up: ``webdriver-manager start`` and run ``gulp build``
+See the instructions at [ng-pack](https://github.com/tameraydin/ng-pack#usage).
 
 ## License
 
 MIT [http://tameraydin.mit-license.org/](http://tameraydin.mit-license.org/)
-
-## TODO
-
-- Add more unit tests
