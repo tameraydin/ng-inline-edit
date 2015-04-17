@@ -1,36 +1,158 @@
 body {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
   font-family: sans-serif;
+  background: #f0f0f0 !important;
+}
+
+pre {
+  margin: 0 !important;
+  padding: 20px !important;
 }
 
 *, *:before, *:after {
   box-sizing: border-box;
 }
 
-.demo-wrapper {
-  margin: 0 auto;
-  box-sizing: border-box;
-  width: 20%;
-  position: relative;
+md-content {
+  padding: 20px;
 }
 
-.first-demo .ng-inline-edit__input {
+md-tabs md-content.md-default-theme {
+  padding: 0;
+}
+
+md-toolbar {
+  margin-top: 30px;
+}
+
+.app-wrapper {
+  background: #f0f0f0;
+  padding-bottom: 30px;
+}
+
+.demo-wrapper {
+  position: relative;
+  width: 600px;
+  margin: 0 auto;
+}
+
+.demo-wrapper md-tabs:last-child {
+  margin-top: 30px;
+}
+
+.fade-in,
+.fade-out {
+  -webkit-transition: opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) .3s;
+  -moz-transition: opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) .3s;
+  transition: opacity cubic-bezier(0.250, 0.460, 0.450, 0.940) .3s;
+}
+
+.fade-in.ng-hide-remove,
+.fade-out.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+  display: block !important;
+}
+
+.fade-out.ng-hide-add,
+.fade-in.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+  display: block !important;
+}
+
+.ng-inline-edit,
+.ng-inline-edit__input {
   font-size: 1em;
+}
+
+/* example-1 */
+.example-1 .ng-inline-edit__input {
   border-bottom: 1px dashed #333;
 }
 
-.first-demo .ng-inline-edit__button {
+.example-1 .ng-inline-edit--error .ng-inline-edit__input {
+  border-color: #ff0000;
+}
+
+.example-1 .ng-inline-edit__button {
   color: blue;
-  cursor: pointer;
   margin-left: 5px;
 }
 
-.first-demo .ng-inline-edit__button:hover {
+.example-1 .ng-inline-edit__button:hover {
   text-decoration: underline;
+}
+
+/* example-2 */
+.example-2 .ng-inline-edit__text {
+  padding: 2px 3px;
+  font-weight: bold;
+}
+
+.example-2 .ng-inline-edit__text:hover {
+  background: #ff0;
+  border-radius: 4px;
+}
+
+.example-2 .ng-inline-edit__text--placeholder {
+  color: #999;
+  font-weight: normal;
+  font-style: italic;
+}
+
+.example-2 .ng-inline-edit__input {
+  padding: 0 3px;
+}
+
+/* example-3 */
+.example-3 .ng-inline-edit--validating:after {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url(ajax-loader.gif);
+}
+
+.example-3 .ng-inline-edit--validating .ng-inline-edit__input {
+  background: #fff;
+  opacity: .4;
+}
+
+.example-3 .ng-inline-edit--error .ng-inline-edit__input {
+  color: #f00;
+}
+
+.example-3 .ng-inline-edit__button {
+  font-size: 0;
+  margin-left: 5px;
+  visibility: hidden;
+  opacity: .6;
+}
+
+.example-3 .ng-inline-edit__button:hover {
+  opacity: 1;
+}
+
+.example-3 .ng-inline-edit:hover .ng-inline-edit__button,
+.example-3 .ng-inline-edit .ng-inline-edit__button--save,
+.example-3 .ng-inline-edit .ng-inline-edit__button--cancel {
+  visibility: visible;
+}
+
+.example-3 .ng-inline-edit__button:after {
+  font-size: 24px;
+  line-height: 24px;
+}
+
+.example-3 .ng-inline-edit__button--edit:after {
+  content: "\270E";
+  color: #00f;
+}
+
+.example-3 .ng-inline-edit__button--save:after {
+  content: "\2714";
+  color: #0f0;
+}
+
+.example-3 .ng-inline-edit__button--cancel:after {
+  content: "\2716";
+  color: #f00;
 }

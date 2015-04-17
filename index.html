@@ -7,24 +7,270 @@
 
   <title>ng-inline-edit</title>
   <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
   <link rel="stylesheet" href="bower_components/ng-inline-edit/dist/ng-inline-edit.min.css">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/themes/solarized-dark.css">
 
   <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+  <script src="bower_components/angular-material/angular-material.min.js"></script>
   <script src="bower_components/ng-inline-edit/dist/ng-inline-edit.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/rainbow.min.js"></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/rainbow/1.1.8/js/language/generic.min.js'></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/rainbow/1.1.8/js/language/html.js'></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/rainbow/1.1.8/js/language/javascript.js'></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/rainbow/1.1.8/js/language/css.js'></script>
 
   <script src="index.js"></script>
 
 </head>
 <body ng-app="demoApp" ng-controller="demoMainController" ng-cloak>
   <a href="https://github.com/tameraydin/ng-inline-edit"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
-  <div class="demo-wrapper">
+  <div layout="column" layout-align="center center" class="app-wrapper">
+    <div class="demo-wrapper">
+      <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+          <h3>
+            <span>Plain example</span>
+          </h3>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Source" ng-click="isSourceVisible[0] = !isSourceVisible[0]">
+            Source
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-content class="example-1 md-accent">
+        <span
+          inline-edit="examples[0].model"
+          inline-edit-validation="examples[0].validator(newValue)"
+          inline-edit-on-blur="cancel"></span>
+      </md-content>
+      <md-tabs class="md-accent fade-in fade-out" ng-show="isSourceVisible[0]" md-selected="tabData[0].selectedIndex">
+        <md-tab id="tab1">
+          <md-tab-label>HTML</md-tab-label>
+          <md-tab-template>
+            <md-content class="md-primary">
+              <pre><code data-language="html">&lt;span
+  inline-edit=&quot;myModel&quot;
+  inline-edit-validation=&quot;myValidator(newValue)&quot;
+  inline-edit-on-blur=&quot;cancel&quot;&gt;&lt;/span&gt;</code></pre>
+            </md-content>
+          </md-tab-template>
+        </md-tab>
+        <md-tab id="tab2">
+          <md-tab-label>JS</md-tab-label>
+          <md-content class="md-primary">
+              <pre><code data-language="javascript">$scope.myModel = &#39;An editable text&#39;;
+$scope.myValidator = function(newValue) {
+  // a simple required field:
+  return !!newValue;
+};</code></pre>
+            </md-content>
+        </md-tab>
+        <md-tab id="tab3">
+          <md-tab-label>CSS</md-tab-label>
+          <md-content class="md-primary">
+              <pre><code data-language="css">.ng-inline-edit__input {
+  border-bottom: 1px dashed #333;
+}
 
-    <span
-      class="first-demo"
-      inline-edit="demoModel"
-      inline-edit-callback="demoChangeListener(newValue)"
-      inline-edit-button-html="Edit"></span>
+.ng-inline-edit--error .ng-inline-edit__input {
+  border-color: #f00;
+}
 
+.ng-inline-edit__button {
+  color: #00f;
+  margin-left: 5px;
+}
+
+.ng-inline-edit__button:hover {
+  text-decoration: underline;
+}</code></pre>
+            </md-content>
+        </md-tab>
+      </md-tabs>
+      <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+          <h3>
+            <span>Without button</span>
+          </h3>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Source" ng-click="isSourceVisible[1] = !isSourceVisible[1]">
+            Source
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-content class="example-2 md-accent">
+        <span
+          inline-edit="examples[1].model"
+          inline-edit-callback="examples[1].callback(newValue)"
+          inline-edit-placeholder="{{examples[1].placeholder}}"
+          inline-edit-on-blur="save"
+          inline-edit-on-click
+          inline-edit-btn-edit=""></span>
+      </md-content>
+      <md-tabs class="md-accent fade-in fade-out" ng-show="isSourceVisible[1]" md-selected="tabData[1].selectedIndex">
+        <md-tab id="tab1">
+          <md-tab-label>HTML</md-tab-label>
+          <md-tab-template>
+            <md-content class="md-primary">
+              <pre><code data-language="html">&lt;span
+  inline-edit=&quot;myModel&quot;
+  inline-edit-callback=&quot;myUpdateHandler(newValue)&quot;
+  inline-edit-placeholder=&quot;Type your value here&quot;
+  inline-edit-btn-edit=&quot;&quot;
+  inline-edit-on-blur=&quot;save&quot;
+  inline-edit-on-click&gt;&lt;/span&gt;</code></pre>
+            </md-content>
+          </md-tab-template>
+        </md-tab>
+        <md-tab id="tab2">
+          <md-tab-label>JS</md-tab-label>
+          <md-content class="md-primary">
+              <pre><code data-language="javascript">$scope.myModel = &#39;Click here and delete me&#39;;
+$scope.myUpdateHandler = function(newValue) {
+  // check your console
+  console.log('value of your model is now: ' + newValue);
+};</code></pre>
+            </md-content>
+        </md-tab>
+        <md-tab id="tab3">
+          <md-tab-label>CSS</md-tab-label>
+          <md-content class="md-primary">
+              <pre><code data-language="css">.ng-inline-edit__input {
+  padding: 0 3px;
+}
+
+.ng-inline-edit__text {
+  padding: 2px 3px;
+  font-weight: bold;
+}
+
+.ng-inline-edit__text:hover {
+  background: #ff0;
+  border-radius: 4px;
+}
+
+.ng-inline-edit__text--placeholder {
+  color: #999;
+  font-weight: normal;
+  font-style: italic;
+}</code></pre>
+            </md-content>
+        </md-tab>
+      </md-tabs>
+      <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+          <h3>
+            <span>Server validation</span>
+          </h3>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Source" ng-click="isSourceVisible[2] = !isSourceVisible[2]">
+            Source
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-content class="example-3 md-accent">
+        <span
+          inline-edit="examples[2].model"
+          inline-edit-validation="examples[2].validator(newValue)"
+          inline-edit-btn-save="Save"
+          inline-edit-btn-cancel="Cancel"></span>
+      </md-content>
+      <md-tabs class="md-accent fade-in fade-out" ng-show="isSourceVisible[2]" md-selected="tabData[2].selectedIndex">
+        <md-tab id="tab1">
+          <md-tab-label>HTML</md-tab-label>
+          <md-tab-template>
+            <md-content class="md-primary">
+              <pre><code data-language="html">&lt;span
+  inline-edit=&quot;myModel&quot;
+  inline-edit-validation=&quot;validateOnServer(newValue)&quot;
+  inline-edit-btn-save=&quot;Save&quot;
+  inline-edit-btn-cancel=&quot;Cancel&quot;&gt;&lt;/span&gt;</code></pre>
+            </md-content>
+          </md-tab-template>
+        </md-tab>
+        <md-tab id="tab2">
+          <md-tab-label>JS</md-tab-label>
+          <md-content class="md-primary">
+              <pre><code data-language="javascript">$scope.myModel = &#39;Need more than 10 chars&#39;,
+$scope.validateOnServer = function(newValue) {
+  var defer = $q.defer();
+
+  // a fake server validation:
+  $timeout(function() {
+    if (newValue.length &gt; 10) { // should be more than 10 chars
+      defer.resolve();
+    } else {
+      defer.reject();
+    }
+  }, 2500);
+
+  return defer.promise;
+};</code></pre>
+            </md-content>
+        </md-tab>
+        <md-tab id="tab3">
+          <md-tab-label>CSS</md-tab-label>
+          <md-content class="md-primary">
+              <pre><code data-language="css">.ng-inline-edit--validating:after {
+  content: &quot;&quot;;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url(ajax-loader.gif);
+}
+
+.ng-inline-edit--validating .ng-inline-edit__input {
+  background: #fff;
+  opacity: .4;
+}
+
+.ng-inline-edit--error .ng-inline-edit__input {
+  color: #f00;
+}
+
+.ng-inline-edit__button {
+  font-size: 0;
+  margin-left: 5px;
+  visibility: hidden;
+  opacity: .6;
+}
+
+.ng-inline-edit__button:hover {
+  opacity: 1;
+}
+
+.ng-inline-edit:hover .ng-inline-edit__button,
+.ng-inline-edit .ng-inline-edit__button--save,
+.ng-inline-edit .ng-inline-edit__button--cancel {
+  visibility: visible;
+}
+
+.ng-inline-edit__button:after {
+  font-size: 24px;
+  line-height: 24px;
+}
+
+.ng-inline-edit__button--edit:after {
+  content: &quot;\270E&quot;;
+  color: #00f;
+}
+
+.ng-inline-edit__button--save:after {
+  content: &quot;\2714&quot;;
+  color: #0f0;
+}
+
+.ng-inline-edit__button--cancel:after {
+  content: &quot;\2716&quot;;
+  color: #f00;
+}</code></pre>
+            </md-content>
+        </md-tab>
+      </md-tabs>
+    </div>
   </div>
 </body>
 </html>
