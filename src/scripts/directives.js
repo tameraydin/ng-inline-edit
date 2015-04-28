@@ -13,7 +13,7 @@
           controller: 'InlineEditController',
           scope: {
             model: '=inlineEdit',
-            placeholder: '=inlineEditPlaceholder',
+            placeholder: '@inlineEditPlaceholder',
             callback: '&inlineEditCallback',
             validate: '&inlineEditValidation'
           },
@@ -39,7 +39,7 @@
                 'ng-show="editMode" ' +
                 'ng-keyup="onInputKeyup($event)" ' +
                 'ng-model="inputValue" ' +
-                'placeholder="{{ placeholder }}" />');
+                'placeholder="' + (scope.placeholder || '') + '" />');
 
             var innerContainer = angular.element(
               '<div class="ng-inline-edit__inner-container"></div>');
