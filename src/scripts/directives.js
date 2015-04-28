@@ -6,8 +6,9 @@
       'angularInlineEdit.providers',
       'angularInlineEdit.controllers'
     ])
-    .directive('inlineEdit', ['$compile', 'InlineEditConfig', 'InlineEditConstants',
-      function($compile, InlineEditConfig, InlineEditConstants) {
+    .directive('inlineEdit', [
+      '$compile', '$interpolate', 'InlineEditConfig', 'InlineEditConstants',
+      function($compile, $interpolate, InlineEditConfig, InlineEditConstants) {
         return {
           restrict: 'A',
           controller: 'InlineEditController',
@@ -19,6 +20,8 @@
           },
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
+            scope.placeholder = scope.placeholder ?
+              $interpolate(scope.placeholder)(scope.$parent) : '';
 
             var onBlurBehavior = attrs.hasOwnProperty('inlineEditOnBlur') ?
               attrs.inlineEditOnBlur : InlineEditConfig.onBlur;
@@ -39,7 +42,7 @@
                 'ng-show="editMode" ' +
                 'ng-keyup="onInputKeyup($event)" ' +
                 'ng-model="inputValue" ' +
-                'placeholder="' + (scope.placeholder || '') + '" />');
+                'placeholder="' + scope.placeholder + '" />');
 
             var innerContainer = angular.element(
               '<div class="ng-inline-edit__inner-container"></div>');
