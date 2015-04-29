@@ -6,8 +6,7 @@
       'angularInlineEdit.providers',
       'angularInlineEdit.controllers'
     ])
-    .directive('inlineEdit', [
-      '$compile', 'InlineEditConfig', 'InlineEditConstants',
+    .directive('inlineEdit', ['$compile', 'InlineEditConfig', 'InlineEditConstants',
       function($compile, InlineEditConfig, InlineEditConstants) {
         return {
           restrict: 'A',
@@ -19,10 +18,6 @@
           },
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
-
-            attrs.$observe('inlineEditPlaceholder', function(x) {
-              scope.placeholder = x;
-            });
 
             var onBlurBehavior = attrs.hasOwnProperty('inlineEditOnBlur') ?
               attrs.inlineEditOnBlur : InlineEditConfig.onBlur;
@@ -104,6 +99,10 @@
             attrs.$observe('inlineEdit', function(newValue) {
               scope.model = scope.$parent.$eval(newValue);
               $compile(element.contents())(scope);
+            });
+
+            attrs.$observe('inlineEditPlaceholder', function(placeholder) {
+              scope.placeholder = placeholder || '';
             });
           }
         };
