@@ -7,21 +7,24 @@
       'angularInlineEdit.controllers'
     ])
     .directive('inlineEdit', [
-      '$compile', '$interpolate', 'InlineEditConfig', 'InlineEditConstants',
-      function($compile, $interpolate, InlineEditConfig, InlineEditConstants) {
+      '$compile', 'InlineEditConfig', 'InlineEditConstants',
+      function($compile, InlineEditConfig, InlineEditConstants) {
         return {
           restrict: 'A',
           controller: 'InlineEditController',
           scope: {
             model: '=inlineEdit',
-            placeholder: '@inlineEditPlaceholder',
             callback: '&inlineEditCallback',
             validate: '&inlineEditValidation'
           },
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
-            scope.placeholder = scope.placeholder ?
-              $interpolate(scope.placeholder)(scope.$parent) : '';
+            scope.placeholder = '';
+
+            attrs.$observe('inlineEditPlaceholder', function(x) {
+                scope.placeholder = x;
+                input.attr('placeholder', scope.placeholder);
+            });
 
             var onBlurBehavior = attrs.hasOwnProperty('inlineEditOnBlur') ?
               attrs.inlineEditOnBlur : InlineEditConfig.onBlur;
