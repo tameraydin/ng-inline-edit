@@ -5,6 +5,7 @@
     .module('angularInlineEdit.controllers', [])
     .controller('InlineEditController', ['$scope', '$document', '$timeout',
       function($scope, $document, $timeout) {
+        $scope.placeholder = '';
         $scope.validationError = false;
         $scope.validating = false;
         $scope.isOnBlurBehaviorValid = false;

@@ -19,7 +19,6 @@
           },
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
-            scope.placeholder = '';
 
             attrs.$observe('inlineEditPlaceholder', function(x) {
               scope.placeholder = x;
