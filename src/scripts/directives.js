@@ -102,7 +102,7 @@
             });
 
             attrs.$observe('inlineEditPlaceholder', function(placeholder) {
-              scope.placeholder = placeholder || '';
+              scope.placeholder = placeholder;
             });
           }
         };
