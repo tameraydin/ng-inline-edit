@@ -29,6 +29,7 @@
     .module('angularInlineEdit.controllers', [])
     .controller('InlineEditController', ['$scope', '$document', '$timeout',
       function($scope, $document, $timeout) {
+        $scope.placeholder = '';
         $scope.validationError = false;
         $scope.validating = false;
         $scope.isOnBlurBehaviorValid = false;
@@ -149,22 +150,18 @@
       'angularInlineEdit.providers',
       'angularInlineEdit.controllers'
     ])
-    .directive('inlineEdit', [
-      '$compile', '$interpolate', 'InlineEditConfig', 'InlineEditConstants',
-      function($compile, $interpolate, InlineEditConfig, InlineEditConstants) {
+    .directive('inlineEdit', ['$compile', 'InlineEditConfig', 'InlineEditConstants',
+      function($compile, InlineEditConfig, InlineEditConstants) {
         return {
           restrict: 'A',
           controller: 'InlineEditController',
           scope: {
             model: '=inlineEdit',
-            placeholder: '@inlineEditPlaceholder',
             callback: '&inlineEditCallback',
             validate: '&inlineEditValidation'
           },
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
-            scope.placeholder = scope.placeholder ?
-              $interpolate(scope.placeholder)(scope.$parent) : '';
 
             var onBlurBehavior = attrs.hasOwnProperty('inlineEditOnBlur') ?
               attrs.inlineEditOnBlur : InlineEditConfig.onBlur;
@@ -185,7 +182,7 @@
                 'ng-show="editMode" ' +
                 'ng-keyup="onInputKeyup($event)" ' +
                 'ng-model="inputValue" ' +
-                'placeholder="' + scope.placeholder + '" />');
+                'placeholder="{{placeholder}}" />');
 
             var innerContainer = angular.element(
               '<div class="ng-inline-edit__inner-container"></div>');
@@ -246,6 +243,10 @@
             attrs.$observe('inlineEdit', function(newValue) {
               scope.model = scope.$parent.$eval(newValue);
               $compile(element.contents())(scope);
+            });
+
+            attrs.$observe('inlineEditPlaceholder', function(placeholder) {
+              scope.placeholder = placeholder;
             });
           }
         };
