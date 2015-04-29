@@ -22,7 +22,6 @@
 
             attrs.$observe('inlineEditPlaceholder', function(x) {
               scope.placeholder = x;
-              input.attr('placeholder', scope.placeholder);
             });
 
             var onBlurBehavior = attrs.hasOwnProperty('inlineEditOnBlur') ?
@@ -44,7 +43,7 @@
                 'ng-show="editMode" ' +
                 'ng-keyup="onInputKeyup($event)" ' +
                 'ng-model="inputValue" ' +
-                'placeholder="' + scope.placeholder + '" />');
+                'placeholder="{{placeholder}}" />');
 
             var innerContainer = angular.element(
               '<div class="ng-inline-edit__inner-container"></div>');
