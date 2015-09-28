@@ -1,5 +1,5 @@
 /**
- * ng-inline-edit v0.5.2 (http://tamerayd.in/ng-inline-edit)
+ * ng-inline-edit v0.6.0 (http://tamerayd.in/ng-inline-edit)
  * Copyright 2015 Tamer Aydin (http://tamerayd.in)
  * Licensed under MIT
  */
@@ -29,6 +29,7 @@
     .module('angularInlineEdit.controllers', [])
     .controller('InlineEditController', ['$scope', '$document', '$timeout',
       function($scope, $document, $timeout) {
+        $scope.placeholder = '';
         $scope.validationError = false;
         $scope.validating = false;
         $scope.isOnBlurBehaviorValid = false;
@@ -118,6 +119,9 @@
           if (!$scope.validating) {
             switch (event.keyCode) {
               case 13: // ENTER
+                if ($scope.isInputTextarea) {
+                  return;
+                }
                 $scope.applyText(false, false);
                 break;
               case 27: // ESC
@@ -156,12 +160,12 @@
           controller: 'InlineEditController',
           scope: {
             model: '=inlineEdit',
-            placeholder: '@inlineEditPlaceholder',
             callback: '&inlineEditCallback',
             validate: '&inlineEditValidation'
           },
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
+            scope.isInputTextarea = attrs.hasOwnProperty('inlineEditTextarea');
 
             var onBlurBehavior = attrs.hasOwnProperty('inlineEditOnBlur') ?
               attrs.inlineEditOnBlur : InlineEditConfig.onBlur;
@@ -177,12 +181,14 @@
                   '\'ng-inline-edit--error\': validationError}">');
 
             var input = angular.element(
-              '<input type="text" class="ng-inline-edit__input" ' +
+              (scope.isInputTextarea ?
+                '<textarea ' : '<input type="text" ') +
+                'class="ng-inline-edit__input" ' +
                 'ng-disabled="validating" ' +
                 'ng-show="editMode" ' +
                 'ng-keyup="onInputKeyup($event)" ' +
                 'ng-model="inputValue" ' +
-                'placeholder="' + (scope.placeholder || '') + '" />');
+                'placeholder="{{placeholder}}" />');
 
             var innerContainer = angular.element(
               '<div class="ng-inline-edit__inner-container"></div>');
@@ -243,6 +249,10 @@
             attrs.$observe('inlineEdit', function(newValue) {
               scope.model = scope.$parent.$eval(newValue);
               $compile(element.contents())(scope);
+            });
+
+            attrs.$observe('inlineEditPlaceholder', function(placeholder) {
+              scope.placeholder = placeholder;
             });
           }
         };
