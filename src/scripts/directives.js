@@ -18,6 +18,7 @@
           },
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
+            scope.isInputTextarea = attrs.hasOwnProperty('inlineEditTextarea');
 
             var onBlurBehavior = attrs.hasOwnProperty('inlineEditOnBlur') ?
               attrs.inlineEditOnBlur : InlineEditConfig.onBlur;
@@ -33,7 +34,9 @@
                   '\'ng-inline-edit--error\': validationError}">');
 
             var input = angular.element(
-              '<input type="text" class="ng-inline-edit__input" ' +
+              (scope.isInputTextarea ?
+                '<textarea ' : '<input type="text" ') +
+                'class="ng-inline-edit__input" ' +
                 'ng-disabled="validating" ' +
                 'ng-show="editMode" ' +
                 'ng-keyup="onInputKeyup($event)" ' +

@@ -103,6 +103,10 @@ md-toolbar {
 }
 
 /* example-3 */
+.example-3 .ng-inline-edit__input {
+  border: 1px solid #000;
+}
+
 .example-3 .ng-inline-edit--validating:after {
   content: "";
   display: inline-block;

@@ -95,6 +95,9 @@
           if (!$scope.validating) {
             switch (event.keyCode) {
               case 13: // ENTER
+                if ($scope.isInputTextarea) {
+                  return;
+                }
                 $scope.applyText(false, false);
                 break;
               case 27: // ESC

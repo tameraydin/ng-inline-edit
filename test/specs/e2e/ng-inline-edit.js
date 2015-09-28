@@ -7,7 +7,8 @@ describe('ng-inline-edit', function() {
 
   // TODO: add more e2e tests
   it('should initialize properly', function() {
-    var input = element.all(by.className('ng-inline-edit__input'));
-    expect(input.count()).toEqual(3);
+    var inputElements = element.all(by.className('ng-inline-edit__input'));
+    expect(inputElements.count()).toEqual(3);
+    expect(inputElements.last().getTagName()).toEqual('textarea');
   });
 });
