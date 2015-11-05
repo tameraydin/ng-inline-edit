@@ -1,7 +1,7 @@
 {
   "name": "ng-inline-edit",
   "description": "Simple inline editing for HTML elements",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "main": "dist/ng-inline-edit.js",
   "keywords": [
     "angular",
