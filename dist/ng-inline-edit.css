@@ -9,7 +9,9 @@
   display: inline-block;
   -webkit-appearance: none;
   -moz-appearance: none; }
+
 .ng-inline-edit__inner-container {
   display: inline-block; }
+
 .ng-inline-edit__button {
   cursor: pointer; }

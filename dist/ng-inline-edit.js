@@ -199,7 +199,9 @@
                 'ng-class="{\'ng-inline-edit__text--placeholder\': !model}" ' +
                 (attrs.hasOwnProperty('inlineEditOnClick') || InlineEditConfig.editOnClick ?
                   'ng-click="editText()" ' : '') +
-                'ng-if="!editMode">{{model || placeholder}}</span>'));
+                'ng-if="!editMode">{{(model || placeholder)' +
+                (attrs.hasOwnProperty('inlineEditFilter') ? ' | ' + attrs.inlineEditFilter : '') +
+                  '}}</span>'));
 
             // edit button
             var inlineEditBtnEdit = attrs.hasOwnProperty('inlineEditBtnEdit') ?
