@@ -1,5 +1,5 @@
 /**
- * ng-inline-edit v0.7.1 (http://tamerayd.in/ng-inline-edit)
+ * ng-inline-edit v0.6.0 (http://tamerayd.in/ng-inline-edit)
  * Copyright 2015 Tamer Aydin (http://tamerayd.in)
  * Licensed under MIT
  */
@@ -166,7 +166,6 @@
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
             scope.isInputTextarea = attrs.hasOwnProperty('inlineEditTextarea');
-            scope.isNumber = isNumber;
 
             var onBlurBehavior = attrs.hasOwnProperty('inlineEditOnBlur') ?
               attrs.inlineEditOnBlur : InlineEditConfig.onBlur;
@@ -200,8 +199,7 @@
                 'ng-class="{\'ng-inline-edit__text--placeholder\': !model}" ' +
                 (attrs.hasOwnProperty('inlineEditOnClick') || InlineEditConfig.editOnClick ?
                   'ng-click="editText()" ' : '') +
-                'ng-if="!editMode">{{' +
-                (scope.isNumber(scope.model) || scope.model ? 'model' : 'placeholder') +
+                'ng-if="!editMode">{{(model || placeholder)' +
                 (attrs.hasOwnProperty('inlineEditFilter') ? ' | ' + attrs.inlineEditFilter : '') +
                   '}}</span>'));
 
@@ -258,10 +256,6 @@
             attrs.$observe('inlineEditPlaceholder', function(placeholder) {
               scope.placeholder = placeholder;
             });
-
-            function isNumber(value) {
-              return !isNaN(parseFloat(value)) && isFinite(value);
-            }
           }
         };
       }
