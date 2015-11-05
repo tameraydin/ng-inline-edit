@@ -1,5 +1,5 @@
 /**
- * ng-inline-edit v0.6.0 (http://tamerayd.in/ng-inline-edit)
+ * ng-inline-edit v0.7.0 (http://tamerayd.in/ng-inline-edit)
  * Copyright 2015 Tamer Aydin (http://tamerayd.in)
  * Licensed under MIT
  */
@@ -255,6 +255,12 @@
 
             attrs.$observe('inlineEditPlaceholder', function(placeholder) {
               scope.placeholder = placeholder;
+            });
+
+            scope.$watch("model", function(newValue, oldValue) {
+              if (!isNaN(parseFloat(newValue)) && isFinite(newValue) && newValue === 0) {
+                scope.model = "0";
+              }
             });
           }
         };

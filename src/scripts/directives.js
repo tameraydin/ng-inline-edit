@@ -109,6 +109,12 @@
             attrs.$observe('inlineEditPlaceholder', function(placeholder) {
               scope.placeholder = placeholder;
             });
+
+            scope.$watch("model", function(newValue, oldValue) {
+              if (!isNaN(parseFloat(newValue)) && isFinite(newValue) && newValue === 0) {
+                scope.model = "0";
+              }
+            });
           }
         };
       }
