@@ -4,6 +4,7 @@ angular
   .module('demoApp', [
     'ngAnimate',
     'ngMaterial',
+    'ngMdIcons',
     'angularInlineEdit'
   ])
   .config(function($mdThemingProvider) {
