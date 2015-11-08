@@ -4,6 +4,7 @@ angular
   .module('demoApp', [
     'ngAnimate',
     'ngMaterial',
+    'ngMdIcons',
     'angularInlineEdit'
   ])
   .config(function($mdThemingProvider) {
@@ -45,6 +46,11 @@ angular
         }, 2500);
 
         return defer.promise;
+      }
+    }, {
+      model: '1250000',
+      validator: function(newValue) {
+        return !!newValue;
       }
     }];
   });
