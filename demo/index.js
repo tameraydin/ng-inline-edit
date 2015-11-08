@@ -50,7 +50,7 @@ angular
     }, {
       model: '1250000',
       validator: function(newValue) {
-        return !!newValue;
+        return !isNaN(newValue);
       }
     }];
   });
