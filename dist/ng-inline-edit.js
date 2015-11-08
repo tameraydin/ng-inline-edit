@@ -1,5 +1,5 @@
 /**
- * ng-inline-edit v0.6.0 (http://tamerayd.in/ng-inline-edit)
+ * ng-inline-edit v0.7.4 (http://tamerayd.in/ng-inline-edit)
  * Copyright 2015 Tamer Aydin (http://tamerayd.in)
  * Licensed under MIT
  */
@@ -9,7 +9,7 @@
   angular
     .module('angularInlineEdit.providers', [])
     .value('InlineEditConfig', {
-      btnEdit: 'Edit',
+      btnEdit: '<ng-md-icon icon="mode_edit" size="16" style="fill: #2196F3"></ng-md-icon>',
       btnSave: '',
       btnCancel: '',
       editOnClick: false,
@@ -199,7 +199,9 @@
                 'ng-class="{\'ng-inline-edit__text--placeholder\': !model}" ' +
                 (attrs.hasOwnProperty('inlineEditOnClick') || InlineEditConfig.editOnClick ?
                   'ng-click="editText()" ' : '') +
-                'ng-if="!editMode">{{model || placeholder}}</span>'));
+                'ng-if="!editMode">{{(model || placeholder)' +
+                (attrs.hasOwnProperty('inlineEditFilter') ? ' | ' + attrs.inlineEditFilter : '') +
+                  '}}</span>'));
 
             // edit button
             var inlineEditBtnEdit = attrs.hasOwnProperty('inlineEditBtnEdit') ?
@@ -253,6 +255,12 @@
 
             attrs.$observe('inlineEditPlaceholder', function(placeholder) {
               scope.placeholder = placeholder;
+            });
+
+            scope.$watch("model", function(newValue, oldValue) {
+              if (!isNaN(parseFloat(newValue)) && isFinite(newValue) && newValue === 0) {
+                scope.model = "0";
+              }
             });
           }
         };
