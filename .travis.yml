@@ -8,7 +8,6 @@ before_install:
   - npm install --global gulp
   - npm install --global bower
   - npm install --global protractor
-  - npm install --global webdriver-manager
   - webdriver-manager update --standalone
   - webdriver-manager start &
   - bower install

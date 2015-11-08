@@ -1,7 +1,7 @@
 {
   "name": "ng-inline-edit",
   "description": "Simple inline editing for HTML elements",
-  "version": "0.7.4",
+  "version": "0.7.0",
   "main": "dist/ng-inline-edit.js",
   "keywords": [
     "angular",
@@ -48,7 +48,7 @@
     "karma-coverage": "^0.2.7",
     "karma-jasmine": "^0.3.5",
     "karma-phantomjs-launcher": "^0.1.4",
-    "protractor": "^2.5.1",
+    "protractor": "^1.7.0",
     "run-sequence": "^1.0.2",
     "st": "^0.5.3"
   },

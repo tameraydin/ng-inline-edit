@@ -298,10 +298,10 @@ $scope.validateOnServer = function(newValue) {
           <md-tab-template>
             <md-content class="md-primary">
               <pre><code data-language="html">&lt;span
-                inline-edit=&quot;myModel&quot;
-                inline-edit-validation=&quot;myValidator(newValue)&quot;
-                inline-edit-filter=&quot;currency&quot;
-                inline-edit-on-blur=&quot;cancel&quot;&gt;&lt;/span&gt;</code></pre>
+inline-edit=&quot;myModel&quot;
+inline-edit-validation=&quot;myValidator(newValue)&quot;
+inline-edit-filter=&quot;currency&quot;
+inline-edit-on-blur=&quot;cancel&quot;&gt;&lt;/span&gt;</code></pre>
             </md-content>
           </md-tab-template>
         </md-tab>
@@ -309,10 +309,10 @@ $scope.validateOnServer = function(newValue) {
           <md-tab-label>JS</md-tab-label>
           <md-content class="md-primary">
               <pre><code data-language="javascript">$scope.myModel = 1250000;
-                $scope.myValidator = function(newValue) {
-                // a simple required field:
-                return !!newValue;
-                };</code></pre>
+$scope.myValidator = function(newValue) {
+  // a simple required field:
+  return !!newValue;
+};</code></pre>
           </md-content>
         </md-tab>
         <md-tab id="tab3">

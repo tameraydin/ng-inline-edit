@@ -4,7 +4,7 @@
   angular
     .module('angularInlineEdit.providers', [])
     .value('InlineEditConfig', {
-      btnEdit: '<ng-md-icon icon="mode_edit" size="16" style="fill: #2196F3"></ng-md-icon>',
+      btnEdit: 'Edit',
       btnSave: '',
       btnCancel: '',
       editOnClick: false,

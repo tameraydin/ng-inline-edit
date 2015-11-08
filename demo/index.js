@@ -37,7 +37,7 @@ angular
       validator: function(newValue) {
         var defer = $q.defer();
 
-        $timeout(function () {
+        $timeout(function() {
           if (newValue.length > 10) {
             defer.resolve();
           } else {

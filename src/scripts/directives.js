@@ -53,7 +53,7 @@
                 (attrs.hasOwnProperty('inlineEditOnClick') || InlineEditConfig.editOnClick ?
                   'ng-click="editText()" ' : '') +
                 'ng-if="!editMode">{{(model || placeholder)' +
-                (attrs.hasOwnProperty('inlineEditFilter') ? ' | ' + attrs.inlineEditFilter : '') +
+                  (attrs.hasOwnProperty('inlineEditFilter') ? ' | ' + attrs.inlineEditFilter : '') +
                   '}}</span>'));
 
             // edit button
@@ -110,9 +110,9 @@
               scope.placeholder = placeholder;
             });
 
-            scope.$watch("model", function(newValue, oldValue) {
+            scope.$watch('model', function(newValue) {
               if (!isNaN(parseFloat(newValue)) && isFinite(newValue) && newValue === 0) {
-                scope.model = "0";
+                scope.model = '0';
               }
             });
           }
