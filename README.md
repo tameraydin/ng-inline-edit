@@ -30,6 +30,7 @@ Pass your model to ``inline-edit`` attribute on your HTML element and provide a 
   inline-edit-callback="yourListener(newValue)"
   inline-edit-validation="yourValidator(enteredValue)"
   inline-edit-placeholder="Type a value..."
+  inline-edit-filter="currency"
   inline-edit-btn-edit="Click to edit"
   inline-edit-btn-save="Save me"
   inline-edit-btn-cancel="Nevermind"
