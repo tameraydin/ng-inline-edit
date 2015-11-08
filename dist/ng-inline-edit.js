@@ -1,5 +1,5 @@
 /**
- * ng-inline-edit v0.7.4 (http://tamerayd.in/ng-inline-edit)
+ * ng-inline-edit v0.7.0 (http://tamerayd.in/ng-inline-edit)
  * Copyright 2015 Tamer Aydin (http://tamerayd.in)
  * Licensed under MIT
  */
@@ -9,7 +9,7 @@
   angular
     .module('angularInlineEdit.providers', [])
     .value('InlineEditConfig', {
-      btnEdit: '<ng-md-icon icon="mode_edit" size="16" style="fill: #2196F3"></ng-md-icon>',
+      btnEdit: 'Edit',
       btnSave: '',
       btnCancel: '',
       editOnClick: false,
@@ -200,7 +200,7 @@
                 (attrs.hasOwnProperty('inlineEditOnClick') || InlineEditConfig.editOnClick ?
                   'ng-click="editText()" ' : '') +
                 'ng-if="!editMode">{{(model || placeholder)' +
-                (attrs.hasOwnProperty('inlineEditFilter') ? ' | ' + attrs.inlineEditFilter : '') +
+                  (attrs.hasOwnProperty('inlineEditFilter') ? ' | ' + attrs.inlineEditFilter : '') +
                   '}}</span>'));
 
             // edit button
@@ -257,9 +257,9 @@
               scope.placeholder = placeholder;
             });
 
-            scope.$watch("model", function(newValue, oldValue) {
+            scope.$watch('model', function(newValue) {
               if (!isNaN(parseFloat(newValue)) && isFinite(newValue) && newValue === 0) {
-                scope.model = "0";
+                scope.model = '0';
               }
             });
           }

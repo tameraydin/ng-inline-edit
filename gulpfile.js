@@ -154,7 +154,7 @@ gulp.task('build', ['clean'], function(cb) {
     'minify',
     'banner',
     'test-unit',
-    // 'test-e2e',
+    'test-e2e',
     cb);
 });
 
