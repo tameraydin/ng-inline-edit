@@ -20,6 +20,7 @@
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
             scope.isInputTextarea = attrs.hasOwnProperty('inlineEditTextarea');
             scope.isInputSelect = attrs.hasOwnProperty('inlineEditSelect');
+
             scope.selectItems = scope.isInputSelect == true ? makeSelectOptions(attrs.inlineEditSelect.split(',')) : null;
 
             var onBlurBehavior = attrs.hasOwnProperty('inlineEditOnBlur') ?
@@ -51,7 +52,7 @@
                 'class="form-control input-sm ng-inline-edit__input" ' +
                 'ng-disabled="validating" ' +
                 'ng-show="editMode" ' +
-                'ng-change="onInputKeyup($event)" ' +
+                'ng-change="onSelectChanged($event)" ' +
                 'ng-model="inputValue" ' +
                 'placeholder="{{placeholder}}">'+scope.selectItems+'</select>' : inputHtml) );    
 
