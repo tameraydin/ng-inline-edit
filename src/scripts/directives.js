@@ -20,7 +20,7 @@
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
             scope.isInputTextarea = attrs.hasOwnProperty('inlineEditTextarea');
             scope.isInputSelect = attrs.hasOwnProperty('inlineEditSelect');
-            scope.selectItems = scope.isInputSelect == true ? makeSelectOptions(attrs.inlineEditSelect.split()) : null;
+            scope.selectItems = scope.isInputSelect == true ? makeSelectOptions(attrs.inlineEditSelect.split(',')) : null;
 
             var onBlurBehavior = attrs.hasOwnProperty('inlineEditOnBlur') ?
               attrs.inlineEditOnBlur : InlineEditConfig.onBlur;
