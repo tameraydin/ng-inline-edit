@@ -19,6 +19,9 @@
           link: function(scope, element, attrs) {
             scope.model = scope.$parent.$eval(attrs.inlineEdit);
             scope.isInputTextarea = attrs.hasOwnProperty('inlineEditTextarea');
+            scope.isInputSelect = attrs.hasOwnProperty('inlineEditSelect');
+
+            scope.selectItems = scope.isInputSelect == true ? makeSelectOptions(attrs.inlineEditSelect.split(',')) : null;
 
             var onBlurBehavior = attrs.hasOwnProperty('inlineEditOnBlur') ?
               attrs.inlineEditOnBlur : InlineEditConfig.onBlur;
@@ -33,7 +36,7 @@
                 'ng-class="{\'ng-inline-edit--validating\': validating, ' +
                   '\'ng-inline-edit--error\': validationError}">');
 
-            var input = angular.element(
+            var inputHtml = 
               (scope.isInputTextarea ?
                 '<textarea ' : '<input type="text" ') +
                 'class="ng-inline-edit__input" ' +
@@ -41,7 +44,17 @@
                 'ng-show="editMode" ' +
                 'ng-keyup="onInputKeyup($event)" ' +
                 'ng-model="inputValue" ' +
-                'placeholder="{{placeholder}}" />');
+                'placeholder="{{placeholder}}" />';
+                
+            var input = angular.element(
+              (scope.isInputSelect ?
+                '<select ' +
+                'class="form-control input-sm ng-inline-edit__input" ' +
+                'ng-disabled="validating" ' +
+                'ng-show="editMode" ' +
+                'ng-change="onSelectChanged($event)" ' +
+                'ng-model="inputValue" ' +
+                'placeholder="{{placeholder}}">'+scope.selectItems+'</select>' : inputHtml) );    
 
             var innerContainer = angular.element(
               '<div class="ng-inline-edit__inner-container"></div>');
@@ -115,6 +128,16 @@
                 scope.model = '0';
               }
             });
+            
+            function makeSelectOptions(data){
+              var result = "";
+              
+              data.forEach(function(item,index){
+                result += "<option ng-selected='\'"+item+"\' == inputValue' value='"+item+"'>"+item+"</option>";
+              });
+              
+              return result;
+            }
           }
         };
       }
