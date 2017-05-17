@@ -8,6 +8,10 @@ Install **ng-inline-edit** via [Bower](http://bower.io):
 ```bash
 bower install ng-inline-edit --production
 ```
+or
+```bash
+npm install ng-inline-edit --save
+```
 
 Include main files:
 ```html
@@ -21,6 +25,15 @@ angular
   .module('yourApp', [
     'angularInlineEdit'
   ]);
+```
+
+Or when you're using Webpack and installed via npm, skip the script tag and
+
+```js
+import ngInlineEdit from 'ng-inline-edit'
+import 'ng-inline-edit/dist/ng-inline-edit.css'
+
+angular.module('myApp', [ngInlineEdit])
 ```
 
 Pass your model to ``inline-edit`` attribute on your HTML element and provide a callback function to listen changes:
