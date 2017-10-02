@@ -52,7 +52,7 @@
                 'ng-class="{\'ng-inline-edit__text--placeholder\': !model}" ' +
                 (attrs.hasOwnProperty('inlineEditOnClick') || InlineEditConfig.editOnClick ?
                   'ng-click="editText()" ' : '') +
-                'ng-if="!editMode">{{(model || placeholder)' +
+                'ng-if="!editMode">{{(model !== null && model !== undefined ? model : placeholder)' +
                   (attrs.hasOwnProperty('inlineEditFilter') ? ' | ' + attrs.inlineEditFilter : '') +
                   '}}</span>'));
 
