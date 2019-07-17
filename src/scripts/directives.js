@@ -13,6 +13,7 @@
           controller: 'InlineEditController',
           scope: {
             model: '=inlineEdit',
+            inputAttributes: "=",
             callback: '&inlineEditCallback',
             validate: '&inlineEditValidation'
           },
@@ -33,15 +34,22 @@
                 'ng-class="{\'ng-inline-edit--validating\': validating, ' +
                   '\'ng-inline-edit--error\': validationError}">');
 
-            var input = angular.element(
-              (scope.isInputTextarea ?
-                '<textarea ' : '<input type="text" ') +
-                'class="ng-inline-edit__input" ' +
-                'ng-disabled="validating" ' +
-                'ng-show="editMode" ' +
-                'ng-keyup="onInputKeyup($event)" ' +
-                'ng-model="inputValue" ' +
-                'placeholder="{{placeholder}}" />');
+            var template = (scope.isInputTextarea ?
+              '<textarea ' : '<input type="text" ') +
+              'class="ng-inline-edit__input" ' +
+              'ng-disabled="validating" ' +
+              'ng-show="editMode" ' +
+              'ng-keyup="onInputKeyup($event)" ' +
+              'ng-model="inputValue" ';
+
+            var attributes = scope.inputAttributes||[];
+            for (var attributeName in attributes) {
+              template += attributeName +'='+JSON.stringify(attributes[attributeName] || "") + " ";
+            }
+
+            template += 'placeholder="{{placeholder}}" />';
+
+            var input = angular.element(template);
 
             var innerContainer = angular.element(
               '<div class="ng-inline-edit__inner-container"></div>');

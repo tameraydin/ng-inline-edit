@@ -94,6 +94,32 @@ describe('angularInlineEdit', function() {
     });
   });
 
-  // TODO
-  // - directive
+
+  describe('inlineEdit directive', function() {
+
+    var $rootScope, $scope, $compile;
+
+    beforeEach(inject(function(_$rootScope_, _$compile_) {
+      $compile = _$compile_;
+      $rootScope = _$rootScope_;
+      $scope = $rootScope.$new();
+      $scope.inlineEditValue = "";
+    }));
+
+    it('should add the input attributes provided in scope', function() {
+      $rootScope.inputAttributes = {
+        'attributeOne': 'valueOne',
+        'attributeTwo': 12,
+        'attributeThree': undefined
+      };
+
+      var element = $compile('<div><span inline-edit="inlineEditValue" input-attributes="inputAttributes" /></div>')($rootScope);
+      $rootScope.$digest();
+
+      var inputElement = element.find('input');
+      expect(inputElement.attr('attributeOne')).toEqual("valueOne");
+      expect(inputElement.attr('attributeTwo')).toEqual("12");
+      expect(inputElement.attr('attributeThree')).toEqual("");
+    });
+  });
 });
