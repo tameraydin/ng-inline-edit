@@ -6,7 +6,6 @@ services:
   - xvfb
 before_install:
   - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
   - npm install --global gulp
   - npm install --global bower
   - npm install --global protractor
