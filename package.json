@@ -50,7 +50,7 @@
     "karma-phantomjs-launcher": "^0.1.4",
     "protractor": "^1.7.0",
     "run-sequence": "^1.0.2",
-    "st": "^0.5.3"
+    "st": "^1.2.2"
   },
   "scripts": {
     "test": "gulp test-unit"
